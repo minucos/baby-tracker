@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Navbar = (props) => {
-  debugger;
   return(
     <div className="navbar">
       <div className="rightbar">
