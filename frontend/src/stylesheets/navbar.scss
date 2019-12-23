@@ -1,0 +1,52 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  font-size: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+  background-color: $blue;
+  color: $orange;
+
+  .leftbar {
+    a {
+      color: $orange;
+      cursor: pointer;
+    }
+  }
+  
+  .center {
+    color: $white;
+    font-family: 'Butterfly Kids', cursive;
+    font-weight: 400;
+    font-size: 50px;
+  }
+
+  .rightbar {
+    svg {
+      height: 75px;
+    }
+
+    ul {
+      display: none;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      color: $white;
+      background-color: $blue;
+
+      li {
+        font-size: 30px;
+        color: $white;
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .rightbar:hover > ul {
+    display: block;
+    position: absolute;
+    right: 0px;
+  }
+}

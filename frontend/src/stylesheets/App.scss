@@ -1,1 +1,7 @@
-@import 'reset'
+$orange: #fea02f;
+$blue: #006d9c;
+$white: #faf5e8;
+
+@import 'reset';
+@import 'navbar';
+@import 'session';
