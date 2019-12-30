@@ -1,7 +1,7 @@
 import React from 'react';
 import './stylesheets/App.scss'
 import { AuthRoute, ProtectedRoute } from './util/route_utils';
-import { Switch, Route, Redirect } from 'react-router';
+import { Switch, Redirect } from 'react-router-dom';
 import Navbar from './components/navbars/navbar';
 import HomePage from './components/homepage';
 import SignupFormContainer from './components/signup_login/signup_form_container';
@@ -12,9 +12,10 @@ function App() {
     <div className="App">
       <Navbar/>
       <Switch>
-        <Route path="/login" component={LoginFormContainer} />
-        <Route path="/signup" component={SignupFormContainer} />
-        <Route path='/' component={HomePage} />
+        <AuthRoute path="/login" component={LoginFormContainer}/>
+        <AuthRoute path="/signup" component={SignupFormContainer}/>
+        <ProtectedRoute exact path="/" component={HomePage}/>
+        <Redirect to="/"/>
       </Switch>
     </div>
   );

@@ -10,7 +10,24 @@ class Login extends React.Component {
     };
 
     this.update = this.update.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
   };
+
+
+  componentDidMount() {
+    this.function = (e) => this.handleEnter(e);
+    this.listener = document.addEventListener('keypress', this.function);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener(this.listener, this.function);
+  }
+
+  handleEnter(e) {
+    if (e.key === 'Enter') {
+      this.submit(e)
+    }
+  }
 
   update(type) {
     return (e) => {
@@ -25,7 +42,7 @@ class Login extends React.Component {
   submit(e) {
     e.preventDefault();
 
-    console.log(this.state);
+    this.props.login(this.state); 
   };
 
   render() {
@@ -44,7 +61,7 @@ class Login extends React.Component {
           placeholder="password"
           onChange={this.update('password')}
         />
-        <button onClick={(e) => this.handleSubmit(e)}>
+        <button onClick={(e) => this.submit(e)}>
           Sign In
         </button>
       </div>

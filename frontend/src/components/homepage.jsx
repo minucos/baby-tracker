@@ -1,8 +1,9 @@
 import React from 'react';
+import ChildIndexContainer from './children/children_index';
 
 const HomePage = (props) => (
   <div>
-    <h1>WELCOME TO BABY TRACKER!</h1>
+    <ChildIndexContainer />
   </div>
 );
 

@@ -21,7 +21,8 @@ const UserSchema = new Schema({
     date: {
         type: Date,
         default: Date.now()
-    }
+    },
+    children: [{ type: mongoose.Schema.ObjectId, ref: 'Child' }]
 });
 
 const User = mongoose.model('users',UserSchema);

@@ -13,7 +13,23 @@ class SignUp extends React.Component {
     };
 
     this.update = this.update.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
   };
+
+  componentDidMount() {
+    this.function = (e) => this.handleEnter(e);
+    this.listener = document.addEventListener('keypress', this.function);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener(this.listener, this.function);
+  }
+
+  handleEnter(e) {
+    if (e.key === 'Enter') {
+      this.submit(e)
+    }
+  }
 
   update(type) {
     return (e) => {
@@ -28,7 +44,7 @@ class SignUp extends React.Component {
   submit(e) {
     e.preventDefault();
 
-    console.log(this.state);
+    this.props.signup(this.state);
   };
 
   render() {

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../../models/User');
+const children = require('./children');
 const BCrypt = require("bcryptjs");
 const keys = require('../../config/keys');
 const jwt = require("jsonwebtoken");
@@ -34,7 +35,25 @@ router.post('/register', (req, res) => {
             if (err) throw err;
             newUser.password = hash;
             newUser.save()
-              .then(user => res.json(user))
+              .then(user => {
+                const payload = {
+                  id: user.id,
+                  fName: user.fName,
+                  lName: user.lName,
+                  email: user.email
+                }
+                jwt.sign(
+                  payload,
+                  keys.secretOrKey,
+                  { expiresIn: 14400},
+                  (err, token) => {
+                    res.json({
+                      success: true,
+                      token: 'Bearer ' + token
+                    })
+                  }
+                )
+              })
               .catch(err => console.log(err))
           })
         })
@@ -84,5 +103,7 @@ router.post("/login", (req, res) => {
         })
     })
 });
+
+router.use('/:userId/children', children)
 
 module.exports = router;
