@@ -11,7 +11,7 @@ class ChildIndex extends React.Component {
   }
 
   render() {
-    if (!this.props.currentUser) return null;
+    let { children, currentUser } = this.props;
 
     return(
       <div>

@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const root = document.getElementById('root');
 
   // testing
+  window.store = store;
   window.axios = axios;
   window.getState = store.getState;
   // end testing

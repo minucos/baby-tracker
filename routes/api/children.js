@@ -3,7 +3,6 @@ const router = express.Router({mergeParams: true});
 const passport = require('passport');
 const ValidateChildInputs = require('../../validation/child');
 const Child = require('../../models/Child');
-const User = require('../../models/User');
 
 router.get('/test', (req, res) => res.json({ msg: "This is the children route" }));
 
@@ -17,9 +16,14 @@ router.get(
   '/',
   passport.authenticate('jwt', {session: false}),
   (req,res) => {
-    const children = Child.find({ parent: req.params.userId });
-
-    return res.json(children)
+    Child.find({ parents: req.params.userId })
+      .then(children => {
+        debugger
+        if (children) {
+          return res.json(children);
+        }
+      })
+      .catch(err => res.status(400).json(err));
   }
 );
 
