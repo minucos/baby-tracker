@@ -14,8 +14,7 @@ const ChildSchema = new Schema({
     type: String,
     required: true
   },
-  parents: [{ type: mongoose.Schema.ObjectId, ref: 'User'}]
-
+  carers: [{ type: mongoose.Schema.ObjectId, ref: 'users' }]
 });
 
 const Child = mongoose.model('children',ChildSchema);

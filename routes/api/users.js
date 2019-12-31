@@ -40,7 +40,7 @@ router.post('/register', (req, res) => {
                   id: user.id,
                   fName: user.fName,
                   lName: user.lName,
-                  email: user.email
+                  email: user.email,
                 }
                 jwt.sign(
                   payload,
@@ -84,7 +84,8 @@ router.post("/login", (req, res) => {
               id: user.id,
               email: user.email,
               fName: user.fName,
-              lName: user.lName
+              lName: user.lName,
+              children: user.children
             };
             jwt.sign(
               payload, 
