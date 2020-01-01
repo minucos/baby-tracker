@@ -1,4 +1,4 @@
-import { RECEIVE_CHILDREN } from "../actions/child_actions";
+import { RECEIVE_CHILDREN, RECEIVE_CHILD } from "../actions/child_actions";
 
 const ChildReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
@@ -6,10 +6,13 @@ const ChildReducer = (oldState = {}, action) => {
   let newState = {};
   switch (action.type) {
     case RECEIVE_CHILDREN:
-      action.children.data.forEach(child => {
+      action.children.forEach(child => {
         newState[child._id] = child;
       })
       return newState;
+
+    case RECEIVE_CHILD:
+      return Object.assign({},oldState,{ [action.child._id]: action.child });
 
     default:
       return oldState;

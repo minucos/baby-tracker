@@ -1,7 +1,11 @@
 $orange: #fea02f;
 $blue: #006d9c;
+$grey: #444d52;
+$lightgrey: #728088;
 $white: #faf5e8;
 
 @import 'reset';
 @import 'navbar';
 @import 'session';
+@import 'child_show';
+@import 'child_index';

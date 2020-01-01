@@ -9,8 +9,9 @@ router.get('/test', (req, res) => res.json({ msg: "This is the children route" }
 
 router.get('/:id', (req,res) => {
   Child.findById(req.params.id)
-  .then(child => res.json(child))
-  .catch(err => res.status(400).json(err))
+    .populate('carers', ['fName', 'lName', '_id', 'email'])
+    .then(child => res.json(child))
+    .catch(err => res.status(400).json(err))
 });
 
 router.get(
