@@ -20,3 +20,11 @@ export const fetchChildren = id => dispatch => {
       errors => dispatch(receiveErrors(errors))
     )  
 };
+
+export const fetchChild = (userId, childId) => dispatch => {
+  return ChildAPIUtil.fetchChild(userId,childId)
+    .then(
+      child => dispatch(receiveChild(child)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};

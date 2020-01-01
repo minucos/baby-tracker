@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchChildren } from '../../actions/child_actions';
+import ChildIndexItem from './child_index_item';
 
 class ChildIndex extends React.Component {
   constructor(props) {
@@ -10,13 +11,23 @@ class ChildIndex extends React.Component {
     this.props.fetchChildren(this.props.currentUser.id);
   }
 
+
   render() {
     let { children, currentUser } = this.props;
+    
+    if (!children) return null;
+
+    let indexItems = Object.values(children).map( child => (
+      <ChildIndexItem
+        key={child._id}
+        child={child}
+      />
+    ))
 
     return(
-      <div>
-        This is the Child Index
-      </div>
+      <ul>
+        {indexItems}
+      </ul>
     )
   }
 }
