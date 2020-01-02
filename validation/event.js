@@ -1,42 +1,54 @@
 const Validator = require('validator');
 const ValidText = require('./valid_text');
+const ValidateFeedInputs = require('./feed');
+const ValidateChangeInputs = require('./change');
+const ValidateSleepInputs = require('./sleep');
 
-const changeTypes = [
-  'pee',
-  'poop'
-]
-const poopOptions = [
-  'sticky',
-  'dark',
-  'yellow',
-  'green',
-  'hard',
-  'loose'
-];
-const peeOptions = [
-  'light',
-  'regular',
-  'heavy',
-];
+const eventTypes = ['change', 'feed', 'sleep'];
 
-const ValidChange = (data) => {
+const ValidEvent = (data) => {
   let errors = {};
-  data.name = ValidText(data.name) ? data.name : '';
-  data.notes = ValidText(data.notes) ? data.notes : '';
-  data.changeType = Array.isArray(data.changeType) ? data.changeType : [];
+  data.eventType = ValidText(data.eventType) ? data.eventType : '';
 
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name cannot be blank';
-  }  
-  if (!Validator.isMongoId(data.recorder)) {
-    errors.recorder = 'recorder is invalid';
+  if (Validator.isEmpty(data.eventType)) {
+    errors.eventType = 'Event Type cannot be blank';
   }
-  if (!data.changeType.every(el => changeTypes.includes(el))) {
-    errors.changeType = "Invalid change type";
-  }
-  if (!data.changeType.includes('pee')) {
-    if (data.changeOptions.every(el => changeTypes.includes(el))) 
-    errors.changeType = "Invalid change options";
+  if (!Validator.isMongoId(data.eventDetails)) {
+    errors.eventDetails = 'Invalid eventDetails'
   }
 
-}
+  let eventErrors;
+  switch (data.eventType) {
+    case 'change':
+      eventErrors = ValidateChangeInputs(data.eventDetails);
+      if (!eventErrors.isValid) {
+        errors.eventErrors = eventErrors.errors;
+      }
+      break;
+
+    case 'feed':
+      eventErrors = ValidateFeedInputs(data.eventDetails);
+      if (!eventErrors.isValid) {
+        errors.eventErrors = eventErrors.errors;
+      }
+      break;
+  
+    case 'sleep':
+      eventErrors = ValidateSleepInputs(data.eventDetails);
+      if (!eventErrors.isValid) {
+        errors.eventErrors = eventErrors.errors;
+      }
+      break;
+  
+    default:
+      errors.eventType = 'Please enter valid event';
+      break;
+  }
+
+  return {
+    errors,
+    isValid: Object.keys(errors).length === 0
+  }
+};
+
+module.exports = ValidEvent;

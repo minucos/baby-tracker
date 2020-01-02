@@ -3,7 +3,7 @@ const router = express.Router({mergeParams: true});
 const passport = require('passport');
 const ValidateChildInputs = require('../../validation/child');
 const Child = require('../../models/Child');
-const User = require('../../models/User');
+const events = require('./events');
 
 router.get('/test', (req, res) => res.json({ msg: "This is the children route" }));
 
@@ -51,6 +51,8 @@ router.post(
       .then(child => res.json(child))
       .catch(err => res.status(400).json(err))
   }
-)
+);
+
+router.use('/:childId/events', events);
 
 module.exports = router;

@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ChangeSchema = new Schema({
-  changeType: [{
+  contents: [{
     type: String,
-    required: true
+    required: true,
+    enum: ['pee','poo']
   }],
   options: [{
     type: String,
@@ -13,13 +14,9 @@ const ChangeSchema = new Schema({
   notes: {
     type: String
   },
-  recorder: {
+  changedBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'users'
-  },
-  createDate: {
-    type: Date,
-    required: true
   }
 });
 

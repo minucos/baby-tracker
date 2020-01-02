@@ -105,6 +105,6 @@ router.post("/login", (req, res) => {
     })
 });
 
-router.use('/:userId/children', children)
+router.use('/:userId/children', children);
 
 module.exports = router;
