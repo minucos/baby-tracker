@@ -31,7 +31,6 @@ router.post(
   (req, res) => {
     req.body.recorder = req.params.userId;
     const { errors, isValid } = ValidateEventInputs(req.body);
-
     if (!isValid) {
       return res.status(400).json(errors);
     }

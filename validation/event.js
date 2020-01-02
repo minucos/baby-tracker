@@ -9,6 +9,7 @@ const eventTypes = ['change', 'feed', 'sleep'];
 const ValidEvent = (data) => {
   let errors = {};
   data.eventType = ValidText(data.eventType) ? data.eventType : '';
+  data.eventDetails = buildEventDetails(data);
 
   if (Validator.isEmpty(data.eventType)) {
     errors.eventType = 'Event Type cannot be blank';
