@@ -31,6 +31,7 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     req.body.recorder = req.params.userId;
+    req.body.child = req.params.childId;
     req.body.eventInfo = parseEventInfo(req.body);
 
     const { errors, isValid } = ValidateEventInputs(req.body);

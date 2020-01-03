@@ -18,6 +18,10 @@ const EventSchema = new Schema({
   recorder: {
     type: mongoose.Schema.ObjectId,
     ref: 'users'
+  },
+  child: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'children'
   }
 });
 

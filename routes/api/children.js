@@ -19,7 +19,7 @@ router.get(
   passport.authenticate('jwt', {session: false}),
   (req,res) => {
     Child.find({ carers: req.params.userId })
-      .populate('carers',['fName', 'lName', '_id','email'])
+      .populate('carers',['fName', 'lName', '_id','email']) 
       .then(children => {
         if (children) {
           return res.json(children);
