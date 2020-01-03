@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const passport = require('passport');
 const ValidateEventInputs = require('../../validation/event');
+const parseEventInfo = require('../../validation/parseEventDetails');
 const Event = require('../../models/Event')
 const Change = require('../../models/Change');
 const Feed = require('../../models/Feed');
@@ -30,19 +31,43 @@ router.post(
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
     req.body.recorder = req.params.userId;
+    req.body.eventInfo = parseEventInfo(req.body);
+
     const { errors, isValid } = ValidateEventInputs(req.body);
     if (!isValid) {
       return res.status(400).json(errors);
     }
 
-    const event = new Event({
-      eventType: req.body.eventType,
-      eventDetails: req.body.eventDetails,
-      recorder: req.body.recorder
-    })
+    let eventDetail;
+    switch (req.body.eventType) {
+      case 'sleep':
+        eventDetail = new Sleep(req.body.eventInfo);
+        break;
+    
+      case 'feed':
+        eventDetail = new Feed(req.body.eventInfo);
+        break;
+    
+      case 'change':
+        eventDetail = new Change(req.body.eventInfo);
+        break;
+    
+      default:
+        break;
+    }
 
-    event.save()
-      .then(event => res.json(event))
+    eventDetail.save()
+      .then(eventDetail => {
+        const event = new Event({
+          eventType: req.body.eventType,
+          eventDetails: eventDetail._id,
+          recorder: req.body.recorder
+        })
+    
+        event.save()
+          .then(event => res.json(event))
+          .catch(err => res.status(400).json(err))
+      })
       .catch(err => res.status(400).json(err))
   }
 );

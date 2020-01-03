@@ -8,7 +8,7 @@ import SignupFormContainer from './components/signup_login/signup_form_container
 import LoginFormContainer from './components/signup_login/login_form_container';
 import ChildShowContainer from './components/children/child_show';
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       <Navbar/>

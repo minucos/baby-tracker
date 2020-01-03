@@ -6,7 +6,7 @@ import App from './App.jsx';
 const Root = ({store}) => (
   <Provider store={store} >
     <HashRouter>
-      <App testProp='this is a test' />
+      <App />
     </HashRouter>
   </Provider>
 );

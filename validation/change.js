@@ -7,26 +7,21 @@ const peeOptions = ['light','regular','heavy','pink'];
 
 const ValidChange = (data) => {
   let errors = {};
-  data.name = ValidText(data.name) ? data.name : '';
-  data.changeType = Array.isArray(data.changeType) ? data.changeType : [];
-
-  if (Validator.isEmpty(data.name)) {
-    errors.name = 'Name cannot be blank';
-  }  
-  if (!Validator.isMongoId(data.recorder)) {
-    errors.recorder = 'recorder is invalid';
+  debugger
+  if (!Validator.isMongoId(data.changedBy)) {
+    errors.changedBy = 'recorder is invalid';
   }
-  if (!data.changeType.every(el => changeTypes.includes(el))) {
-    errors.changeType = "Invalid contents";
+  if (!data.contents.every(el => changeTypes.includes(el))) {
+    errors.contents = "Invalid contents";
   }
-  if (!data.changeType.includes('pee')) {
-    if (data.changeOptions.some(el => peeOptions.includes(el))) {
-      errors.changeType = "Invalid change options";
+  if (!data.contents.includes('pee')) {
+    if (data.options.some(el => peeOptions.includes(el))) {
+      errors.options = "Invalid change options";
     }
   }
-  if (!data.changeType.includes('poo')) {
-    if (data.changeOptions.some(el => poopOptions.includes(el))) {
-      errors.changeType = "Invalid change options";
+  if (!data.contents.includes('poo')) {
+    if (data.options.some(el => poopOptions.includes(el))) {
+      errors.options = "Invalid change options";
     }
   }
   return {
