@@ -2,6 +2,7 @@ import * as EventAPIUtil from '../util/event_api_utiil';
 
 export const RECEIVE_ALL_EVENTS = 'RECEIVE_ALL_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
+export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 
 const receiveAllEvents = events => ({
   type: RECEIVE_ALL_EVENTS,
@@ -21,7 +22,7 @@ const receiveErrors = errors => ({
 export const fetchAllEvents = (userId,childId) => dispatch => {
   return EventAPIUtil.fetchAllEvents(userId,childId)
     .then(
-      events => dispatch(receiveAllEvents(events)),
+      events => dispatch(receiveAllEvents(events.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };
@@ -29,7 +30,7 @@ export const fetchAllEvents = (userId,childId) => dispatch => {
 export const fetchEvent = (userId,childId, eventId) => dispatch => {
   return EventAPIUtil.fetchEvent(userId,childId, eventId)
     .then(
-      event => dispatch(receiveEvent(event)),
+      event => dispatch(receiveEvent(event.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };

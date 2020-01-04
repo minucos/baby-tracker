@@ -2,6 +2,7 @@ import React from 'react';
 import './stylesheets/App.scss'
 import { AuthRoute, ProtectedRoute } from './util/route_utils';
 import { Switch, Redirect } from 'react-router-dom';
+import ModalContainer from './components/modals/modal';
 import Navbar from './components/navbars/navbar';
 import HomePage from './components/homepage';
 import SignupFormContainer from './components/signup_login/signup_form_container';
@@ -11,6 +12,7 @@ import ChildShowContainer from './components/children/child_show';
 function App() {
   return (
     <div className="App">
+      <ModalContainer />
       <Navbar/>
       <Switch>
         <AuthRoute path="/login" component={LoginFormContainer}/>

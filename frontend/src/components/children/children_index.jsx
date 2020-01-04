@@ -4,16 +4,14 @@ import { fetchChildren } from '../../actions/child_actions';
 import ChildIndexItem from './child_index_item';
 
 class ChildIndex extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+
   componentDidMount() {
     this.props.fetchChildren(this.props.currentUser.id);
   }
 
 
   render() {
-    let { children, currentUser } = this.props;
+    let { children } = this.props;
     
     if (!children) return null;
 
