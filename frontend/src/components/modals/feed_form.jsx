@@ -4,11 +4,38 @@ import { withRouter } from 'react-router-dom';
 import { closeModal } from '../../actions/modal_actions';
 import { createEvent } from '../../actions/event_actions';
 
-const FeedForm = props => {
+class FeedForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-  return(
-    <h1 onClick={() => props.closeModal()}>FEED FORM</h1>
-  )
+  updateInput(field) {
+    return (e) => {
+      e.preventDefault();
+
+      this.setState({
+        [field]: e.target.value
+      })
+    }
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.props.createFeed(this.state);
+  }
+
+  render() {
+    return(
+      <div className="modal-container">
+        <form onSubmit={() => this.handleSubmit()}>
+          <input type="checkbox"/>
+            <span>TEST</span>
+        </form>
+      </div>
+    )
+  }
 };
 
 const MSP = (state,ownProps) => ({

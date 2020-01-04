@@ -7,7 +7,9 @@ import { createEvent } from '../../actions/event_actions';
 const SleepForm = props => {
 
   return (
-    <h1 onClick={() => props.closeModal()}>SLEEP FORM</h1>
+    <div className="modal-container">
+      <h1 onClick={() => props.closeModal()}>SLEEP FORM</h1>
+    </div>
   )
 };
 

@@ -7,7 +7,9 @@ import { createEvent } from '../../actions/event_actions';
 const ChangeForm = props => {
 
   return (
-    <h1 onClick={() => props.closeModal()}>CHANGE FORM</h1>
+    <div className="modal-container">
+      <h1 onClick={() => props.closeModal()}>CHANGE FORM</h1>
+    </div>
   )
 };
 
