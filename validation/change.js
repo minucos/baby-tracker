@@ -2,7 +2,7 @@ const Validator = require('validator');
 const ValidText = require('./valid_text');
 
 const changeTypes = ['pee','poo'];
-const poopOptions = ['yellow/brown','sticky','dark','green','hard','loose'];
+const poopOptions = ['yellow/brown','sticky','black','green','hard','loose'];
 const peeOptions = ['light','dark','pink'];
 
 const ValidChange = (data) => {

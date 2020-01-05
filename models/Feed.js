@@ -22,6 +22,14 @@ const FeedSchema = new Schema({
   fedBy: {
     type: mongoose.Schema.ObjectId,
     ref: 'users'
+  },
+  startTime: {
+    type: Date,
+    default: Date.now()
+  },
+  endTime: {
+    type: Date,
+    default: Date.now()
   }
 });
 

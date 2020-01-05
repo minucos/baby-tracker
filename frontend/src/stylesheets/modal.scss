@@ -34,6 +34,8 @@
 
     .form-options {
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
       color: $orange;
       
       button {
@@ -93,7 +95,7 @@
     button {
       margin: 5px;
       margin-bottom: 20px;
-      width: 80%;
+      // width: 80%;
       height: 50px;
       border-radius: 10px;
       background-color: $orange;

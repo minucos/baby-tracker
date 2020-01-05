@@ -26,6 +26,7 @@ class FeedForm extends React.Component {
   updateField(field) {
     return (e) => {
       e.preventDefault();
+      e.stopPropagation();
       console.log(e.target.value)
 
       this.setState({
@@ -37,12 +38,14 @@ class FeedForm extends React.Component {
   updateCarers() {
     return (e) => {
       e.preventDefault();
+      e.stopPropagation();
       console.log(e.target.value);
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    
 
     this.props.createFeed(this.state);
   }
@@ -109,20 +112,17 @@ class FeedForm extends React.Component {
 
   render() {
     let { 
-      foodFrom, 
-      foodType, 
-      options,
       notes,
       fedBy,
       startTime,
       endTime
     } = this.state;
-    let { child } = this.props;
+    let { child, closeModal } = this.props;
 
     if (!child) return null;
 
     return(
-      <div className="modal-container">
+      <div className="modal-container" onClick={closeModal}>
         <div className="form">
           <div className="form-header">
             How did you feed {child.name}?
@@ -156,7 +156,7 @@ class FeedForm extends React.Component {
           </div>
           <textarea 
             type="text" 
-            value={this.state.notes}
+            value={notes}
             placeholder="Add Notes..." 
             onChange={this.updateField('notes')}
           />
