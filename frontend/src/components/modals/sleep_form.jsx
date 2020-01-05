@@ -14,13 +14,13 @@ const SleepForm = props => {
 };
 
 const MSP = (state, ownProps) => ({
-  userId: state.session.id,
+  userId: state.session.user.id,
   childId: ownProps.match.params.childId
 })
 
 const MDP = dispatch => ({
   closeModal: () => dispatch(closeModal()),
-  createSleep: (sleep) => dispatch(createEvent(sleep))
+  createSleep: (userId,childId,sleep) => dispatch(createEvent(userId,childId,sleep))
 });
 
 export default withRouter(connect(MSP, MDP)(SleepForm));

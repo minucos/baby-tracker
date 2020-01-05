@@ -11,6 +11,7 @@ class FeedForm extends React.Component {
     let startDate = Date.now();
     let endDate = startDate + (60000 * 30);
     this.state = {
+      eventType: 'feed',
       foodFrom: '',
       foodType: '',
       options: [],
@@ -20,13 +21,13 @@ class FeedForm extends React.Component {
       endTime: this.formatDate(new Date(endDate)),
     };
     this.fromOptions = ['breast','bottle','other'];
-    this.typeOptions = ['Milk','Formula','Solids'];
+    this.typeOptions = ['milk','formula','solids'];
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   updateField(field) {
     return (e) => {
       e.preventDefault();
-      e.stopPropagation();
       console.log(e.target.value)
 
       this.setState({
@@ -35,19 +36,12 @@ class FeedForm extends React.Component {
     }
   };
 
-  updateCarers() {
-    return (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log(e.target.value);
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    
-
-    this.props.createFeed(this.state);
+    let { userId, childId } = this.props;
+    let feed = this.state;
+    feed.fedBy = feed.fedBy.id;
+    this.props.createFeed(userId,childId,feed);
   }
 
   formatDate(date) {
@@ -93,12 +87,10 @@ class FeedForm extends React.Component {
   }
 
   showList(e) {
-    e.stopPropagation();
     e.currentTarget.firstElementChild.classList.add('displayed');
   }
 
   hideList(e) {
-    e.stopPropagation();
     e.currentTarget.classList.remove('displayed');
   }
 
@@ -123,7 +115,7 @@ class FeedForm extends React.Component {
 
     return(
       <div className="modal-container" onClick={closeModal}>
-        <div className="form">
+        <div className="form" onClick={(e) => e.stopPropagation()}>
           <div className="form-header">
             How did you feed {child.name}?
           </div>
@@ -178,6 +170,7 @@ class FeedForm extends React.Component {
             />
           </div>
           <button 
+            className="submit-button"
             onClick={this.handleSubmit}
           >
             Submit
@@ -192,7 +185,7 @@ const MSP = (state,ownProps) => {
   let childId = ownProps.location.pathname.split('/').reverse()[0];
 
   return ({
-    userId: state.session.id,
+    userId: state.session.user.id,
     child: state.entities.children[childId],
     user: state.session.user,
     carers: selectCarers(state),
@@ -203,7 +196,7 @@ const MSP = (state,ownProps) => {
 
 const MDP = dispatch => ({
   closeModal: () => dispatch(closeModal()),
-  createFeed: (feed) => dispatch(createEvent(feed))
+  createFeed: (userId, childId, feed) => dispatch(createEvent(userId, childId,feed))
 });
 
 export default withRouter(connect(MSP,MDP)(FeedForm));

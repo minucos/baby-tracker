@@ -10,6 +10,7 @@ class ChangeForm extends React.Component {
     super(props);
     let changeDate = Date.now();
     this.state = {
+      eventType: 'change',
       contents: [],
       options: [],
       notes: '',
@@ -19,12 +20,12 @@ class ChangeForm extends React.Component {
     this.contents = ['pee','poo'];
     this.peeOptions = ['light', 'dark', 'pink'];
     this.pooOptions = ['yellow', 'sticky', 'black', 'green', 'hard', 'loose'];
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   updateField(field) {
     return (e) => {
       e.preventDefault();
-      e.stopPropagation();
 
       this.setState({
         [field]: e.target.value
@@ -35,7 +36,7 @@ class ChangeForm extends React.Component {
   updateArrayField(field) {
     return (e) => {
       e.preventDefault();
-      e.stopPropagation();
+
       let { options } = this.state;
       let ele = e.target.value;
       let idx = options.indexOf(ele);
@@ -71,8 +72,11 @@ class ChangeForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    let { userId, childId } = this.props;
+    let change = this.state;
+    change.changedBy = change.changedBy.id;
 
-    this.props.createChange(this.state);
+    this.props.createChange(userId, childId, change);
   }
 
   formatDate(date) {
@@ -145,12 +149,10 @@ class ChangeForm extends React.Component {
   }
 
   showList(e) {
-    e.stopPropagation();
     e.currentTarget.firstElementChild.classList.add('displayed');
   }
 
   hideList(e) {
-    e.stopPropagation();
     e.currentTarget.classList.remove('displayed');
   }
 
@@ -175,7 +177,7 @@ class ChangeForm extends React.Component {
 
     return (
       <div className="modal-container" onClick={closeModal}>
-        <div className="form">
+        <div className="form" onClick={(e) => e.stopPropagation()}>
           <div className="form-header">
             What was in {child.name}'s nappy?
           </div>
@@ -216,6 +218,7 @@ class ChangeForm extends React.Component {
             />
           </div>
           <button
+            className="submit-button"
             onClick={this.handleSubmit}
           >
             Submit
@@ -230,7 +233,7 @@ const MSP = (state, ownProps) => {
   let childId = ownProps.location.pathname.split('/').reverse()[0];
 
   return ({
-    userId: state.session.id,
+    userId: state.session.user.id,
     child: state.entities.children[childId],
     user: state.session.user,
     carers: selectCarers(state),
@@ -240,7 +243,7 @@ const MSP = (state, ownProps) => {
 
 const MDP = dispatch => ({
   closeModal: () => dispatch(closeModal()),
-  createChange: (change) => dispatch(createEvent(change))
+  createChange: (userId,childId,change) => dispatch(createEvent(userId,childId,change))
 });
 
 export default withRouter(connect(MSP, MDP)(ChangeForm));

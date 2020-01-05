@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const passport = require('passport');
 const ValidateEventInputs = require('../../validation/event');
 const parseEventInfo = require('../../validation/parseEventDetails');

@@ -17,6 +17,7 @@ const parseEventDetails = (data) => {
     case 'change':
       details.changedBy = data.changedBy;
       details.notes = data.notes;
+      details.changeTime = data.changeTime;
       
       if (Array.isArray(data.options)) {
         details.options = data.options;
@@ -36,6 +37,8 @@ const parseEventDetails = (data) => {
       details.foodType = data.foodType;
       details.notes = data.notes;
       details.fedBy = data.fedBy;
+      details.startTime = data.startTime;
+      details.endTime = data.endTime;
 
       if (Array.isArray(data.options)) {
         details.options = data.options;

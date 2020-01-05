@@ -5,6 +5,7 @@ const ValidFeed = (data) => {
   let errors = {};
   data.foodFrom = validText(data.foodFrom) ? data.foodFrom : '';
   data.foodType = validText(data.foodType) ? data.foodType : '';
+  data.fedBy = validText(data.fedBy) ? data.fedBy : '';
   data.startTime = validText(data.startTime) ? data.startTime : '';
   data.endTime = validText(data.endTime) ? data.endTime : '';
 
