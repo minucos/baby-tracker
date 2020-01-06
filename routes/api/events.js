@@ -66,7 +66,12 @@ router.post(
         })
     
         event.save()
-          .then(event => res.json(event))
+          .then(event => {
+            Event.findOne({ _id: event._id })
+              .populate('eventDetails')
+              .populate('recorder', ['fName', 'lName', '_id', 'email'])
+              .then(event => res.json(event))
+          })
           .catch(err => res.status(400).json(err))
       })
       .catch(err => res.status(400).json(err))

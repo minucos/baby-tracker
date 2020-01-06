@@ -38,7 +38,7 @@ export const fetchEvent = (userId,childId, eventId) => dispatch => {
 export const createEvent = (userId,childId, event) => dispatch => {
   return EventAPIUtil.createEvent(userId,childId, event)
     .then(
-      event => dispatch(receiveEvent(event)),
+      event => dispatch(receiveEvent(event.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };
