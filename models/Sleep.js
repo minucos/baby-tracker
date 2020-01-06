@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SleepSchema = new Schema({
-  timeSlept: {
-    type: Number,
+  startTime: {
+    type: Date,
     required: true
   },
-  options: [{
-    type: String,
+  endTime: {
+    type: Date,
     required: true
-  }],
+  },
   notes: {
     type: String
   }

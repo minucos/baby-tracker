@@ -3,14 +3,9 @@ const parseEventDetails = (data) => {
 
   switch (data.eventType) {
     case 'sleep':
-      details.timeSlept = parseInt(data.timeSlept);
+      details.startTime = data.startTime;
+      details.endTime = data.endTime;
       details.notes = data.notes;
-
-      if (Array.isArray(data.options)) {
-        details.options = data.options;
-      } else {
-        details.options = [data.options];
-      }
 
       return details;
       
