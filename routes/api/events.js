@@ -14,11 +14,12 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
-    Event.find({ carers: req.params.childId })
+    Event.find({ child: req.params.childId })
       .populate('recorder', ['fName', 'lName', '_id', 'email'])
       .populate('eventDetails')
       .then(events => {
         if (events) {
+          debugger
           return res.json(events);
         }
       })
@@ -62,7 +63,8 @@ router.post(
         const event = new Event({
           eventType: req.body.eventType,
           eventDetails: eventDetail._id,
-          recorder: req.body.recorder
+          recorder: req.body.recorder,
+          child: req.body.child
         })
     
         event.save()

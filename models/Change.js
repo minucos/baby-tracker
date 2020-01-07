@@ -16,7 +16,8 @@ const ChangeSchema = new Schema({
   },
   changedBy: {
     type: mongoose.Schema.ObjectId,
-    ref: 'users'
+    ref: 'users',
+    required: true
   },
   changeTime: {
     type: Date,

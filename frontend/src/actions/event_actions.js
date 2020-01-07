@@ -4,10 +4,13 @@ export const RECEIVE_ALL_EVENTS = 'RECEIVE_ALL_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 
-const receiveAllEvents = events => ({
-  type: RECEIVE_ALL_EVENTS,
-  events
-});
+const receiveAllEvents = events => {
+  debugger
+  return({
+    type: RECEIVE_ALL_EVENTS,
+    events
+  });
+}
 
 const receiveEvent = event => ({
   type: RECEIVE_EVENT,

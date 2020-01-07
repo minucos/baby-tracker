@@ -21,7 +21,8 @@ const EventSchema = new Schema({
   },
   child: {
     type: mongoose.Schema.ObjectId,
-    ref: 'children'
+    ref: 'children',
+    required: true
   }
 });
 

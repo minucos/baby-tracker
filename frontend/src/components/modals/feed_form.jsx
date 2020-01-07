@@ -28,7 +28,6 @@ class FeedForm extends React.Component {
   updateField(field) {
     return (e) => {
       e.preventDefault();
-      console.log(e.target.value)
 
       this.setState({
         [field]: e.target.value
