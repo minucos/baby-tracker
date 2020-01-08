@@ -18,7 +18,6 @@ const receiveUserLogout = () => ({
 });
 
 const receiveErrors = (errors) => {
-  debugger
   return({
     type: RECEIVE_SESSION_ERRORS,
     errors: errors

@@ -19,7 +19,6 @@ router.get(
       .populate('eventDetails')
       .then(events => {
         if (events) {
-          debugger
           return res.json(events);
         }
       })

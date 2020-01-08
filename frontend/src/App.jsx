@@ -8,6 +8,7 @@ import HomePage from './components/homepage';
 import SignupFormContainer from './components/signup_login/signup_form_container';
 import LoginFormContainer from './components/signup_login/login_form_container';
 import ChildShowContainer from './components/children/child_show';
+import EventsIndexContainer from './components/events/events_index';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <AuthRoute path="/login" component={LoginFormContainer}/>
         <AuthRoute path="/signup" component={SignupFormContainer}/>
         <ProtectedRoute exact path="/child/:id" component={ChildShowContainer}/>
+        <ProtectedRoute exact path="/child/:id/events" component={EventsIndexContainer}/>
         <ProtectedRoute exact path="/" component={HomePage}/>
         <Redirect to="/"/>
       </Switch>

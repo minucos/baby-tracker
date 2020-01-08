@@ -10,24 +10,7 @@ class Login extends React.Component {
     };
 
     this.update = this.update.bind(this);
-    this.handleEnter = this.handleEnter.bind(this);
   };
-
-
-  componentDidMount() {
-    this.function = (e) => this.handleEnter(e);
-    this.listener = document.addEventListener('keypress', this.function);
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener(this.listener, this.function);
-  }
-
-  handleEnter(e) {
-    if (e.key === 'Enter') {
-      this.submit(e)
-    }
-  }
 
   update(type) {
     return (e) => {
@@ -48,7 +31,10 @@ class Login extends React.Component {
   render() {
     let { email, password } = this.state;
     return (
-      <div className="session-form">
+      <form 
+        className="session-form" 
+        onSubmit={(e) => this.submit(e)}
+      >
         <input
           type="text"
           value={email}
@@ -61,10 +47,8 @@ class Login extends React.Component {
           placeholder="password"
           onChange={this.update('password')}
         />
-        <button onClick={(e) => this.submit(e)}>
-          Sign In
-        </button>
-      </div>
+        <input className="submit-button" type="submit" value="Sign In"/>
+      </form>
     )
   };
 };

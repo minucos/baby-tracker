@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchChild } from '../../actions/child_actions';
 import { openModal } from '../../actions/modal_actions';
 import { fetchAllEvents } from '../../actions/event_actions';
@@ -25,8 +26,12 @@ class Child extends React.Component {
     return `${diff} years`;
   }
 
+  lastEventTime(type) {
+
+  }
+
   render() {
-    let { child, userId, openModal } = this.props;
+    let { child, userId, childId, openModal } = this.props;
 
     if (!child) return null;
 
@@ -42,16 +47,30 @@ class Child extends React.Component {
         <div className="profile-pic">
           <FontAwesomeIcon icon={faBaby} />
         </div>
-        <div>{child.name}</div>
-        <div>{this.calcAge()}</div>
-        <ul className="carers">Other Carers:
-          {carers}
-        </ul>
+        <div className="child-details">
+          <h1>{child.name}</h1>
+          <h2>({this.calcAge()})</h2>
+        </div>
+        <h3>Time since last</h3>
+        <div className="stats">
+          <div className="stat-details">
+            <div>Feed:</div>
+
+          </div>
+          <div className="stat-details">
+            <div>Change:</div>
+          </div>
+          <div className="stat-details">
+            <div>Sleep:</div>
+          </div>
+        </div>
+        <h3>Log Event:</h3>
         <ul className='event-options'>
           <li onClick={() => openModal('feed')}>Feed</li>
           <li onClick={() => openModal('change')}>Change</li>
           <li onClick={() => openModal('sleep')}>Sleep</li>
         </ul>
+        <Link to={`/child/${childId}/events`}>See All Events</Link>
       </div>
     )
   }
@@ -62,6 +81,7 @@ const MSP = (state, ownProps) => {
   return({
     child: state.entities.children[childId],
     userId: state.session.user.id,
+    events: Object.values(state.entities.events),
     childId
   })
 };

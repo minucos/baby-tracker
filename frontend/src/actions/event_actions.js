@@ -5,7 +5,6 @@ export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 
 const receiveAllEvents = events => {
-  debugger
   return({
     type: RECEIVE_ALL_EVENTS,
     events
