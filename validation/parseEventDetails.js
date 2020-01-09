@@ -12,7 +12,7 @@ const parseEventDetails = (data) => {
     case 'change':
       details.changedBy = data.changedBy;
       details.notes = data.notes;
-      details.changeTime = data.changeTime;
+      details.startTime = data.startTime;
       
       if (Array.isArray(data.options)) {
         details.options = data.options;

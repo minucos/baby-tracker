@@ -15,7 +15,7 @@ class ChangeForm extends React.Component {
       options: [],
       notes: '',
       changedBy: this.props.user,
-      changeTime: this.formatDate(new Date(changeDate)),
+      startTime: this.formatDate(new Date(changeDate)),
     };
     this.contents = ['pee','poo'];
     this.peeOptions = ['light', 'dark', 'pink'];
@@ -169,7 +169,7 @@ class ChangeForm extends React.Component {
       contents,
       notes,
       changedBy,
-      changeTime,
+      startTime,
     } = this.state;
     let { child, closeModal } = this.props;
 
@@ -213,8 +213,8 @@ class ChangeForm extends React.Component {
             <span>Time</span>
             <input
               type="datetime-local"
-              value={changeTime}
-              onChange={this.updateField('changeTime')}
+              value={startTime}
+              onChange={this.updateField('startTime')}
             />
           </div>
           <button

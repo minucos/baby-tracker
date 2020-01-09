@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { fetchChild } from '../../actions/child_actions';
 import { fetchAllEvents } from '../../actions/event_actions';
 import { openModal } from '../../actions/modal_actions';
+import { sortEvents } from '../../reducers/selectors';
+import EventIndexItem from './event_index_item';
 
 class EventsIndex extends React.Component {
   componentDidMount() {
@@ -11,12 +13,22 @@ class EventsIndex extends React.Component {
     this.props.fetchAllEvents(userId, childId);
   }
 
-
-
   render() {
+    let { events, child } = this.props;
+
+    if (!child) return null;
+
+    let allEvents = events.map(event => {
+      return(
+        <EventIndexItem event={event} key={event._id}/>
+      )
+    })
+
     return(
-      <div>
-        <h1>THIS IS THE EVENTS INDEX PAGE</h1>
+      <div className="event-index">
+        <ul>
+          {allEvents}
+        </ul>
       </div>
     )
   }
@@ -27,7 +39,7 @@ const MSP = (state, ownProps) => {
   return ({
     child: state.entities.children[childId],
     userId: state.session.user.id,
-    events: Object.values(state.entities.events),
+    events: sortEvents(state),
     childId
   })
 };

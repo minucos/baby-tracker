@@ -6,6 +6,7 @@ import { openModal } from '../../actions/modal_actions';
 import { fetchAllEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby } from '@fortawesome/free-solid-svg-icons';
+import { filterEvents } from '../../reducers/selectors';
 
 class Child extends React.Component {
 
@@ -26,12 +27,31 @@ class Child extends React.Component {
     return `${diff} years`;
   }
 
-  lastEventTime(type) {
+  calcTimeAgo(type) {
+    let events = this.props[type];
 
+    if (events.length === 0) return "";
+
+    let eventDate = events[events.length - 1].eventDetails.startTime;
+
+    let time = ((Date.now() - new Date(eventDate)) / (1000 * 60 * 60));
+
+    return(
+      <div>
+        {time.toFixed(1)} hrs
+      </div>
+    ) 
   }
 
   render() {
-    let { child, userId, childId, openModal } = this.props;
+    let { child,
+          userId,
+          childId,
+          openModal,
+          feeds,
+          changes,
+          sleeps
+        } = this.props;
 
     if (!child) return null;
 
@@ -55,13 +75,15 @@ class Child extends React.Component {
         <div className="stats">
           <div className="stat-details">
             <div>Feed:</div>
-
+            {this.calcTimeAgo('feeds')}
           </div>
           <div className="stat-details">
             <div>Change:</div>
+            {this.calcTimeAgo('changes')}
           </div>
           <div className="stat-details">
             <div>Sleep:</div>
+            {this.calcTimeAgo('sleeps')}
           </div>
         </div>
         <h3>Log Event:</h3>
@@ -78,10 +100,13 @@ class Child extends React.Component {
 
 const MSP = (state, ownProps) => {
   let childId = ownProps.match.params.id;
+
   return({
     child: state.entities.children[childId],
     userId: state.session.user.id,
-    events: Object.values(state.entities.events),
+    feeds: filterEvents(state, 'feed'),
+    changes: filterEvents(state, 'change'),
+    sleeps: filterEvents(state, 'sleep'),
     childId
   })
 };

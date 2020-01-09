@@ -19,7 +19,7 @@ const ChangeSchema = new Schema({
     ref: 'users',
     required: true
   },
-  changeTime: {
+  startTime: {
     type: Date,
     default: Date.now()
   }

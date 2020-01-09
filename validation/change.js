@@ -8,7 +8,7 @@ const peeOptions = ['light','dark','pink'];
 const ValidChange = (data) => {
   let errors = {};
 
-  data.changeTime = ValidText(data.changeTime) ? data.changeTime : '';
+  data.startTime = ValidText(data.startTime) ? data.startTime : '';
 
   if (!Validator.isMongoId(data.changedBy)) {
     errors.changedBy = 'recorder is invalid';
@@ -26,14 +26,14 @@ const ValidChange = (data) => {
       errors.options = "Invalid change options";
     }
   }
-  if (Validator.isEmpty(data.changeTime)) {
-    errors.changetime = 'changeTime cannot be blank';
+  if (Validator.isEmpty(data.startTime)) {
+    errors.startTime = 'startTime cannot be blank';
   }
 
-  data.changeTime = new Date(data.changeTime);
+  data.startTime = new Date(data.startTime);
 
-  if (isNaN(data.changeTime.getDate())) {
-    errors.changeTime = 'please enter a valid changeTime';
+  if (isNaN(data.startTime.getDate())) {
+    errors.startTime = 'please enter a valid startTime';
   }
 
   return {
