@@ -1,12 +1,15 @@
 const Validator = require('validator');
 const validText = require('./valid_text');
 
+const startingOptions = ['left', 'right'];
+
 const ValidFeed = (data) => {
   let errors = {};
   data.foodFrom = validText(data.foodFrom) ? data.foodFrom : '';
   data.foodType = validText(data.foodType) ? data.foodType : '';
   data.fedBy = validText(data.fedBy) ? data.fedBy : '';
   data.startTime = validText(data.startTime) ? data.startTime : '';
+  data.startingSide = validText(data.startingSide) ? data.startingSide : '';
   data.endTime = validText(data.endTime) ? data.endTime : '';
 
   if (Validator.isEmpty(data.foodFrom)) {
@@ -20,6 +23,12 @@ const ValidFeed = (data) => {
   }
   if (Validator.isEmpty(data.startTime)) {
     errors.startTime = 'startTime cannot be blank';
+  }
+  if (!startingOptions.includes((data.startingSide))) {
+    errors.startingSide = 'startingSide invalid';
+  }
+  if (Validator.isEmpty(data.startingSide)) {
+    errors.startingSide = 'startingSide cannot be blank';
   }
   if (Validator.isEmpty(data.endTime)) {
     errors.endTime = 'endTime cannot be blank';

@@ -33,13 +33,8 @@ const parseEventDetails = (data) => {
       details.notes = data.notes;
       details.fedBy = data.fedBy;
       details.startTime = data.startTime;
+      details.startingSide = data.startingSide;
       details.endTime = data.endTime;
-
-      if (Array.isArray(data.options)) {
-        details.options = data.options;
-      } else {
-        details.options = [data.options];
-      }
 
       return details;
 

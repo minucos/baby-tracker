@@ -12,10 +12,11 @@ const FeedSchema = new Schema({
     required: true,
     enum: ['milk','formula','solids']
   },
-  options: [{
+  startingSide: {
     type: String,
-    required: true
-  }],
+    required: true,
+    enum: ['left', 'right']
+  },
   notes: {
     type: String
   },

@@ -14,7 +14,7 @@ class FeedForm extends React.Component {
       eventType: 'feed',
       foodFrom: '',
       foodType: '',
-      options: [],
+      startingSide: '',
       notes: '',
       fedBy: this.props.user,
       startTime: this.formatDate(new Date(startDate)),
@@ -22,16 +22,26 @@ class FeedForm extends React.Component {
     };
     this.fromOptions = ['breast','bottle','other'];
     this.typeOptions = ['milk','formula','solids'];
+    this.sideOptions = ['left', 'right'];
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   updateField(field) {
     return (e) => {
       e.preventDefault();
+      let value = e.target.value;
 
-      this.setState({
-        [field]: e.target.value
-      })
+      if (field === 'foodFrom' && value !== this.state.foodFrom) {
+        this.setState({
+          [field]: value,
+          startingSide: '',
+          foodType: ''
+        })
+      } else {
+        this.setState({
+          [field]: value
+        })
+      }
     }
   };
 
@@ -85,6 +95,32 @@ class FeedForm extends React.Component {
     ))
   }
 
+  startingSideOptions() {
+    let { startingSide, foodFrom } = this.state;
+    let { child } = this.props;
+    if (foodFrom !== 'breast') return null;
+
+    return(
+      <>
+        <div className="form-header">
+          What side did {child.name} start?
+        </div>
+        <div className="form-options">
+          {this.sideOptions.map((option, idx) => (
+            <button
+            key={idx}
+            onClick={this.updateField('startingSide')}
+            value={option}
+            className={option === startingSide ? 'selected' : ''}
+            >
+              {option[0].toUpperCase() + option.slice(1)}
+            </button>
+          ))}
+        </div>
+      </>
+    ) 
+  }
+
   showList(e) {
     e.currentTarget.firstElementChild.classList.add('displayed');
   }
@@ -121,6 +157,7 @@ class FeedForm extends React.Component {
           <div className="form-options">
             {this.foodFromOptions()}
           </div>
+            {this.startingSideOptions()}
           <div className="form-header">
             What did {child.name} eat?
           </div>

@@ -9,6 +9,10 @@ const ValidChange = (data) => {
   let errors = {};
 
   data.startTime = ValidText(data.startTime) ? data.startTime : '';
+  data.contents = data.contents.filter(el => changeTypes.includes(el));
+  data.options = data.options.filter(el => 
+    poopOptions.includes(el) || peeOptions.includes(el) 
+  );
 
   if (!Validator.isMongoId(data.changedBy)) {
     errors.changedBy = 'recorder is invalid';

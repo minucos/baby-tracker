@@ -20,16 +20,14 @@ class EventsIndex extends React.Component {
 
     let allEvents = events.map(event => {
       return(
-        <EventIndexItem event={event} key={event._id}/>
+        <EventIndexItem event={event} key={event._id} carers={child.carers}/>
       )
     })
 
     return(
-      <div className="event-index">
-        <ul>
-          {allEvents}
-        </ul>
-      </div>
+      <ul className="event-index">
+        {allEvents}
+      </ul>
     )
   }
 }
