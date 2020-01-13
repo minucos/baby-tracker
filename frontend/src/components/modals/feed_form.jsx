@@ -98,10 +98,10 @@ class FeedForm extends React.Component {
   startingSideOptions() {
     let { startingSide, foodFrom } = this.state;
     let { child } = this.props;
-    if (foodFrom !== 'breast') return null;
+    let isSelected = foodFrom === 'breast';
 
     return(
-      <>
+      <div className={ isSelected ? 'displayed' : 'hidden' }>
         <div className="form-header">
           What side did {child.name} start?
         </div>
@@ -117,7 +117,7 @@ class FeedForm extends React.Component {
             </button>
           ))}
         </div>
-      </>
+      </div>
     ) 
   }
 

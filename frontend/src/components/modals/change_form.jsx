@@ -121,7 +121,7 @@ class ChangeForm extends React.Component {
     )
   }
 
-  changeList(type) {
+  changeList(type, hide) {
     let { options } = this.state;
     let { child } = this.props;
     let list = type === 'pee' ? this.peeOptions : this.pooOptions;
