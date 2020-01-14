@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchChild } from '../../actions/child_actions';
-import { openModal } from '../../actions/modal_actions';
+import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby } from '@fortawesome/free-solid-svg-icons';
@@ -91,9 +91,9 @@ class Child extends React.Component {
         </div>
         <h3>Log Event:</h3>
         <ul className='event-options'>
-          <li onClick={() => openModal('feed')}>Feed</li>
-          <li onClick={() => openModal('change')}>Change</li>
-          <li onClick={() => openModal('sleep')}>Sleep</li>
+          <li onClick={() => openModal('feed',childId)}>Feed</li>
+          <li onClick={() => openModal('change',childId)}>Change</li>
+          <li onClick={() => openModal('sleep',childId)}>Sleep</li>
         </ul>
         <Link to={`/child/${childId}/events`}>See All Events</Link>
       </div>
@@ -117,7 +117,7 @@ const MSP = (state, ownProps) => {
 const MDP = dispatch => ({
   fetchChild: (userId,childId) => dispatch(fetchChild(userId,childId)),
   fetchAllEvents: (userId,childId) => dispatch(fetchAllEvents(userId,childId)),
-  openModal: (modal) => dispatch(openModal(modal))
+  openModal: (modal,childId) => dispatch(openModal(modal,childId))
 })
 
 export default connect(MSP,MDP)(Child);

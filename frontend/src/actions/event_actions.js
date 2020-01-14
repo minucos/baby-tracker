@@ -21,8 +21,8 @@ const receiveErrors = errors => ({
   errors
 })
 
-export const fetchAllEvents = (userId,childId,page,limit) => dispatch => {
-  return EventAPIUtil.fetchAllEvents(userId,childId,page,limit)
+export const fetchAllEvents = (payload) => dispatch => {
+  return EventAPIUtil.fetchAllEvents(payload)
     .then(
       events => dispatch(receiveAllEvents(events.data)),
       errors => dispatch(receiveErrors(errors))

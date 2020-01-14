@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { closeModal } from '../../actions/modal_actions';
+import { closeModal } from '../../actions/ui_actions';
 import { createEvent } from '../../actions/event_actions';
 import { selectCarers } from '../../reducers/selectors';
 
@@ -229,8 +229,8 @@ class ChangeForm extends React.Component {
   }
 };
 
-const MSP = (state, ownProps) => {
-  let childId = ownProps.location.pathname.split('/').reverse()[0];
+const MSP = state => {
+  let childId = state.ui.selectedChild;
 
   return ({
     userId: state.session.user.id,

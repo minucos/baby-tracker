@@ -53,3 +53,56 @@
     }
   }
 }
+
+.filter-container {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 30px;
+  width: 100%;
+  color: $white;
+
+  div {
+    height: 30px;
+    font-size: 25px;
+    padding: 0 10px;
+    background-color: $blue;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: solid 2px $blue;
+    // color: $white;
+  }
+  ul {
+    display: flex;
+    justify-content: center;
+    width: 60%;
+    transition-property: height;
+    transition-duration: 0.5s;
+    background-color: $blue;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 0 10px;
+    
+    li {
+      font-size: 20px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      margin: 5px;
+      padding: 0 10px;
+      border-radius: 10px;
+      color: $white;
+      background-color: $blue;
+    }
+  
+    .selected {
+      background-color: $darkblue;
+    }
+  }
+}
+
+.filter-container:hover {
+  height: 80px;
+}

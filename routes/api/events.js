@@ -16,15 +16,20 @@ router.get(
   (req, res) => {
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.limit);
+    let filter = req.query.filter;
 
-    Event.find({ child: req.params.childId })
-      .populate({ 
-        path: 'eventDetails', 
-        // options: { sort: { startTime: -1 } } 
-      })
+    let event;
+    if (filter !== '') {
+      event = Event.find({ child: req.params.childId, eventType: filter });
+    } else {
+      event = Event.find({ child: req.params.childId });
+    }
+
+    event
+      .populate('eventDetails')
       .populate('recorder', ['fName', 'lName', '_id', 'email'])
       .sort({ startTime: -1 })
-      .skip(page * limit).limit(15)
+      .skip(page * limit).limit(limit)
       .then(events => {
         if (events) {
           return res.json(events);
