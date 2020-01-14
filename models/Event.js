@@ -15,6 +15,10 @@ const EventSchema = new Schema({
     type: Date,
     default: Date.now()
   },
+  startTime: {
+    type: Date,
+    default: Date.now()
+  },
   recorder: {
     type: mongoose.Schema.ObjectId,
     ref: 'users'

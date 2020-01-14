@@ -10,6 +10,7 @@ import { filterEvents } from '../../reducers/selectors';
 
 class Child extends React.Component {
 
+
   componentDidMount() {
     let { userId,childId } = this.props;
     this.props.fetchChild(userId,childId);
@@ -31,8 +32,13 @@ class Child extends React.Component {
     let events = this.props[type];
 
     if (events.length === 0) return "";
-
-    let eventDate = events[events.length - 1].eventDetails.startTime;
+    
+    let eventDate;
+    if (type === 'changes') {
+      eventDate = events[events.length - 1].eventDetails.startTime;
+    } else {
+      eventDate = events[events.length - 1].eventDetails.endTime;
+    }
 
     let time = ((Date.now() - new Date(eventDate)) / (1000 * 60 * 60));
 
@@ -47,10 +53,7 @@ class Child extends React.Component {
     let { child,
           userId,
           childId,
-          openModal,
-          feeds,
-          changes,
-          sleeps
+          openModal
         } = this.props;
 
     if (!child) return null;
@@ -99,15 +102,15 @@ class Child extends React.Component {
 }
 
 const MSP = (state, ownProps) => {
-  let childId = ownProps.match.params.id;
+  // let childId = ownProps.match.params.id;
 
   return({
-    child: state.entities.children[childId],
+    child: ownProps.child,
     userId: state.session.user.id,
     feeds: filterEvents(state, 'feed'),
     changes: filterEvents(state, 'change'),
     sleeps: filterEvents(state, 'sleep'),
-    childId
+    childId: ownProps.child._id
   })
 };
 

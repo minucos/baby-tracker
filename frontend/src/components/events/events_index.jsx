@@ -7,10 +7,20 @@ import { sortEvents } from '../../reducers/selectors';
 import EventIndexItem from './event_index_item';
 
 class EventsIndex extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      page: 0,
+      limit: 15
+    }
+  }
+
   componentDidMount() {
     let { userId, childId } = this.props;
+    let { page, limit } = this.state;
+
     this.props.fetchChild(userId, childId);
-    this.props.fetchAllEvents(userId, childId);
+    this.props.fetchAllEvents(userId, childId,page,limit);
   }
 
   render() {
@@ -44,7 +54,7 @@ const MSP = (state, ownProps) => {
 
 const MDP = dispatch => ({
   fetchChild: (userId, childId) => dispatch(fetchChild(userId, childId)),
-  fetchAllEvents: (userId, childId) => dispatch(fetchAllEvents(userId, childId)),
+  fetchAllEvents: (userId, childId, page, limit) => dispatch(fetchAllEvents(userId, childId, page, limit)),
   openModal: (modal) => dispatch(openModal(modal))
 })
 

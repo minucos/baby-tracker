@@ -34,7 +34,10 @@ class SleepForm extends React.Component {
     e.preventDefault();
     let { userId, childId } = this.props;
 
-    this.props.createSleep(userId, childId, this.state);
+    this.props.createSleep(userId, childId, this.state)
+      .then(
+        () => this.props.closeModal(),
+      );
   }
 
   formatDate(date) {

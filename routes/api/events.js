@@ -14,9 +14,17 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    let page = parseInt(req.query.page);
+    let limit = parseInt(req.query.limit);
+
     Event.find({ child: req.params.childId })
+      .populate({ 
+        path: 'eventDetails', 
+        // options: { sort: { startTime: -1 } } 
+      })
       .populate('recorder', ['fName', 'lName', '_id', 'email'])
-      .populate('eventDetails')
+      .sort({ startTime: -1 })
+      .skip(page * limit).limit(15)
       .then(events => {
         if (events) {
           return res.json(events);
@@ -61,6 +69,7 @@ router.post(
       .then(eventDetail => {
         const event = new Event({
           eventType: req.body.eventType,
+          startTime: req.body.startTime,
           eventDetails: eventDetail._id,
           recorder: req.body.recorder,
           child: req.body.child

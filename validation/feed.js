@@ -24,11 +24,13 @@ const ValidFeed = (data) => {
   if (Validator.isEmpty(data.startTime)) {
     errors.startTime = 'startTime cannot be blank';
   }
-  if (!startingOptions.includes((data.startingSide))) {
-    errors.startingSide = 'startingSide invalid';
-  }
-  if (Validator.isEmpty(data.startingSide)) {
-    errors.startingSide = 'startingSide cannot be blank';
+  if (data.foodFrom === 'breast') {
+    if (!startingOptions.includes((data.startingSide))) {
+      errors.startingSide = 'startingSide invalid';
+    }
+    if (Validator.isEmpty(data.startingSide)) {
+      errors.startingSide = 'startingSide cannot be blank';
+    }
   }
   if (Validator.isEmpty(data.endTime)) {
     errors.endTime = 'endTime cannot be blank';

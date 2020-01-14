@@ -76,7 +76,10 @@ class ChangeForm extends React.Component {
     let change = this.state;
     change.changedBy = change.changedBy.id;
 
-    this.props.createChange(userId, childId, change);
+    this.props.createChange(userId, childId, change)
+      .then(
+        () => this.props.closeModal(),
+      );
   }
 
   formatDate(date) {
@@ -110,13 +113,10 @@ class ChangeForm extends React.Component {
   }
 
   changeOptions(contents) {
-    let showPee = contents.includes('pee');
-    let showPoo = contents.includes('poo');
-
     return(
       <>
-        { showPee ? this.changeList('pee') : null }
-        { showPoo ? this.changeList('poo') : null }
+        { this.changeList('pee') }
+        { this.changeList('poo') }
       </>
     )
   }
@@ -137,14 +137,14 @@ class ChangeForm extends React.Component {
     ));
 
     return(
-      <>
+      <div className={ options.includes(type) ? 'displayed' : 'hidden' }>
         <div className="form-header">
           What was {child.name}'s {type} like?
         </div>
         <div className="form-options">
           {list}
         </div>
-      </>
+      </div>
     )
   }
 

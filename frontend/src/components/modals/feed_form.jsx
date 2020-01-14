@@ -14,7 +14,7 @@ class FeedForm extends React.Component {
       eventType: 'feed',
       foodFrom: '',
       foodType: '',
-      startingSide: '',
+      startingSide: 'n/a',
       notes: '',
       fedBy: this.props.user,
       startTime: this.formatDate(new Date(startDate)),
@@ -34,7 +34,7 @@ class FeedForm extends React.Component {
       if (field === 'foodFrom' && value !== this.state.foodFrom) {
         this.setState({
           [field]: value,
-          startingSide: '',
+          startingSide: 'n/a',
           foodType: ''
         })
       } else {
@@ -50,7 +50,10 @@ class FeedForm extends React.Component {
     let { userId, childId } = this.props;
     let feed = this.state;
     feed.fedBy = feed.fedBy.id;
-    this.props.createFeed(userId,childId,feed);
+    this.props.createFeed(userId,childId,feed)
+      .then(
+        () => this.props.closeModal(),
+      );
   }
 
   formatDate(date) {

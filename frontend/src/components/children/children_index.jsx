@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchChildren } from '../../actions/child_actions';
-import ChildIndexItem from './child_index_item';
-
+import ChildContainer from './child_show';
+ 
 class ChildIndex extends React.Component {
 
   componentDidMount() {
@@ -16,7 +16,7 @@ class ChildIndex extends React.Component {
     if (!children) return null;
 
     let indexItems = Object.values(children).map( child => (
-      <ChildIndexItem
+      <ChildContainer
         key={child._id}
         child={child}
       />

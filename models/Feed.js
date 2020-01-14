@@ -14,8 +14,7 @@ const FeedSchema = new Schema({
   },
   startingSide: {
     type: String,
-    required: true,
-    enum: ['left', 'right']
+    enum: ['left', 'right', 'n/a']
   },
   notes: {
     type: String

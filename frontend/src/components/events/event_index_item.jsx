@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBed, faBaby, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faBaby } from '@fortawesome/free-solid-svg-icons';
 import FeedItem from './feed_item';
 
 const toggleDetails = (e) => {
