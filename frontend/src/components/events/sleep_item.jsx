@@ -21,7 +21,8 @@ const SleepItem = ({ eventDetails, carer, toggleDetails }) => {
         <span>{new Date(startTime).toLocaleDateString()}</span>
       </div>
       <ul>
-        <li>Time: {new Date(eventDetails.startTime).toLocaleTimeString()}</li>
+        <li>Went Down: {new Date(eventDetails.startTime).toLocaleTimeString()}</li>
+        <li>Woke Up: {new Date(eventDetails.endTime).toLocaleTimeString()}</li>
         <li>Time Slept: {calcDuration(startTime,endTime)} hours</li>
         <li>Notes: {eventDetails.notes}</li>
       </ul>

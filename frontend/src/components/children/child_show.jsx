@@ -49,7 +49,7 @@ class Child extends React.Component {
 
     return(
       <div>
-        {(time - offset).toFixed(1)} hrs
+        {(time).toFixed(1)} hrs
       </div>
     ) 
   }

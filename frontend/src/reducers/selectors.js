@@ -8,8 +8,10 @@ export const filterEvents = (state, type) => {
   let events = Object.values(state.entities.events).filter(event => event.eventType === type);
 
   return events.sort((a, b) => {
-    let dateOne = new Date(a.eventDetails.startTime);
-    let dateTwo = new Date(b.eventDetails.startTime);
+    let aDate = a.eventDetails.endTime ? a.eventDetails.endTime : a.eventDetails.startTime;
+    let bDate = b.eventDetails.endTime ? b.eventDetails.endTime : b.eventDetails.startTime;
+    let dateOne = new Date(aDate);
+    let dateTwo = new Date(bDate);
 
     return dateTwo - dateOne;
   });
@@ -19,8 +21,10 @@ export const sortEvents = ({ entities }) => {
   let events = Object.values(entities.events);
 
   return events.sort((a,b) => {
-    let dateOne = new Date(a.eventDetails.startTime);
-    let dateTwo = new Date(b.eventDetails.startTime);
+    let aDate = a.eventDetails.endTime ? a.eventDetails.endTime : a.eventDetails.startTime;
+    let bDate = b.eventDetails.endTime ? b.eventDetails.endTime : b.eventDetails.startTime;
+    let dateOne = new Date(aDate);
+    let dateTwo = new Date(bDate);
     
     return dateTwo-dateOne;
   });
