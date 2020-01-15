@@ -55,14 +55,8 @@ class EventsIndex extends React.Component {
   }
 
   turnPage(n) {
-    if ( n > 0 && this.props.events.length < this.state.limit) return null;
-    let { totalEvents, events } = this.props;
-    let { page, limit } = this.state;
-    let lastPage = n > 0 && totalEvents <= (page + 1) * limit || events.length < limit;
-    let nextPage = page + n;
+    let nextPage = this.state.page + n;
 
-    nextPage = nextPage < 0 ? 0 : lastPage ? page : nextPage;
-    debugger
     this.setState({
       page: nextPage
     })
@@ -94,14 +88,14 @@ class EventsIndex extends React.Component {
         <div className='pages'>
           <div 
             className={page === 0 ? 'page-turn disabled' : 'page-turn'}
-            onClick={() => this.turnPage(-1)}
+            onClick={page === 0 ? null : () => this.turnPage(-1)}
           >
             <FontAwesomeIcon icon={faBackward}/>
             <span>prev</span>
           </div>
           <div 
             className={lastPage ? 'page-turn disabled' : 'page-turn'}
-            onClick={() => this.turnPage(1)}
+            onClick={lastPage? null : () => this.turnPage(1)}
           >
             <span>next</span>
             <FontAwesomeIcon icon={faForward}/>
