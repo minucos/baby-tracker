@@ -92,7 +92,7 @@ router.post(
       .then(eventDetail => {
         const event = new Event({
           eventType: req.body.eventType,
-          startTime: req.body.startTime,
+          startTime: eventDetail.startTime,
           eventDetails: eventDetail._id,
           recorder: req.body.recorder,
           child: req.body.child
