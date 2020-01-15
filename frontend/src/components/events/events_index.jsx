@@ -30,7 +30,14 @@ class EventsIndex extends React.Component {
     let { filter, page, limit } = this.state;
     if (prevState.filter !== filter || prevState.page !== page ) {
       let { userId, childId } = this.props;
-      this.props.fetchFilteredEvents({userId, childId,page,limit,filter});
+      this.props.fetchFilteredEvents({userId, childId,page,limit,filter})
+        .then(() => {
+          if (prevState.filter !== filter ) {
+            this.setState({
+            page: 0
+            })
+          }
+        });
     }
   }
 
@@ -49,18 +56,22 @@ class EventsIndex extends React.Component {
 
   turnPage(n) {
     if ( n > 0 && this.props.events.length < this.state.limit) return null;
+    let { totalEvents, events } = this.props;
+    let { page, limit } = this.state;
+    let lastPage = n > 0 && totalEvents <= (page + 1) * limit || events.length < limit;
+    let nextPage = page + n;
 
-    let page = this.state.page + n;
-    page = page < 0 ? 0 : page;
+    nextPage = nextPage < 0 ? 0 : lastPage ? page : nextPage;
+    debugger
     this.setState({
-      page: page
+      page: nextPage
     })
   }
 
   render() {
     let { events, child, totalEvents } = this.props;
     let { filter, page, limit } = this.state;
-
+    let lastPage = totalEvents === (page+1) * limit || events.length < limit;
     if (events.length === 0) {
       return(
         <div className="loading">
@@ -89,7 +100,7 @@ class EventsIndex extends React.Component {
             <span>prev</span>
           </div>
           <div 
-            className={events.length < limit ? 'page-turn disabled' : 'page-turn'}
+            className={lastPage ? 'page-turn disabled' : 'page-turn'}
             onClick={() => this.turnPage(1)}
           >
             <span>next</span>
