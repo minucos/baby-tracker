@@ -115,8 +115,27 @@
   justify-content: space-between;
   width: 90%;
   padding: 0 5%;
-  font-size: 20px;
   color: $blue;
+  
+  .page-turn {
+    display: flex;
+    align-items: center;
+    // background-color: $blue;
+    color: $blue;
+    padding: 5px;
+    border-radius: 10px;
+    font-size: 30px;
+    line-height: 30px;
+    
+    span {
+      padding: 0 10px 4px 10px;
+    }
+  }
+
+  .disabled {
+    color: $white;
+  }
+
 }
 
 .loading {

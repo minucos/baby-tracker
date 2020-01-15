@@ -5,10 +5,11 @@ export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
-const receiveAllEvents = events => {
+const receiveAllEvents = ({events,count}) => {
   return({
     type: RECEIVE_ALL_EVENTS,
-    events
+    events,
+    count
   });
 }
 

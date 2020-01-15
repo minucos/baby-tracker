@@ -27,15 +27,15 @@ class EventsIndex extends React.Component {
   }
 
   componentDidUpdate(prevProps,prevState) {
-    if (prevState.filter !== this.state.filter) {
+    let { filter, page, limit } = this.state;
+    if (prevState.filter !== filter || prevState.page !== page ) {
       let { userId, childId } = this.props;
-      let { page, limit, filter } = this.state;
       this.props.fetchFilteredEvents({userId, childId,page,limit,filter});
     }
   }
 
   revealOptions(e) {
-    e.currentTarget.classList.toggle('show');
+    e.currentTarget.parentElement.classList.toggle('show');
   }
 
   applyFilter(filter) {
@@ -47,9 +47,19 @@ class EventsIndex extends React.Component {
     }
   }
 
+  turnPage(n) {
+    if ( n > 0 && this.props.events.length < this.state.limit) return null;
+
+    let page = this.state.page + n;
+    page = page < 0 ? 0 : page;
+    this.setState({
+      page: page
+    })
+  }
+
   render() {
-    let { events, child } = this.props;
-    let { filter } = this.state;
+    let { events, child, totalEvents } = this.props;
+    let { filter, page, limit } = this.state;
 
     if (events.length === 0) {
       return(
@@ -71,11 +81,23 @@ class EventsIndex extends React.Component {
           {allEvents}
         </ul>
         <div className='pages'>
-          <div className='page-turn'><FontAwesomeIcon icon={faBackward}/></div>
-          <div className='page-turn'><FontAwesomeIcon icon={faForward}/></div>
+          <div 
+            className={page === 0 ? 'page-turn disabled' : 'page-turn'}
+            onClick={() => this.turnPage(-1)}
+          >
+            <FontAwesomeIcon icon={faBackward}/>
+            <span>prev</span>
+          </div>
+          <div 
+            className={events.length < limit ? 'page-turn disabled' : 'page-turn'}
+            onClick={() => this.turnPage(1)}
+          >
+            <span>next</span>
+            <FontAwesomeIcon icon={faForward}/>
+          </div>
         </div>
-        <div className='filter-container' onClick={this.revealOptions}>
-          <div>
+        <div className='filter-container'>
+          <div onClick={this.revealOptions}>
             <FontAwesomeIcon icon={faMinus}/>
           </div>
           <ul>
@@ -110,6 +132,7 @@ const MSP = (state, ownProps) => {
     child: state.entities.children[childId],
     userId: state.session.user.id,
     events: sortEvents(state),
+    totalEvents: state.ui.count,
     childId
   })
 };

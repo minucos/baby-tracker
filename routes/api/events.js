@@ -37,23 +37,29 @@ router.get(
     let filter = req.query.filter;
 
     let event;
+    let totalEvents;
     if (filter !== '') {
       event = Event.find({ child: req.params.childId, eventType: filter });
+      totalEvents = Event.find({ child: req.params.childId, eventType: filter }).count();
     } else {
       event = Event.find({ child: req.params.childId });
+      totalEvents = Event.find({ child: req.params.childId }).count();
     }
-
-    event
-      .populate('eventDetails')
-      .populate('recorder', ['fName', 'lName', '_id', 'email'])
-      .sort({ startTime: -1 })
-      .skip(page * limit).limit(limit)
-      .then(events => {
-        if (events) {
-          return res.json(events);
-        }
-      })
-      .catch(err => res.status(400).json(err));
+    totalEvents.count({}, (err,count) => {
+      let skipAmt = (page * limit) % count;
+      
+      event
+        .populate('eventDetails')
+        .populate('recorder', ['fName', 'lName', '_id', 'email'])
+        .sort({ startTime: -1 })
+        .skip(skipAmt).limit(limit)
+        .then(events => {
+          if (events) {
+            return res.json({events,count});
+          }
+        })
+        .catch(err => res.status(400).json(err));
+    });
   }
 )
 
