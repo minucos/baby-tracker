@@ -3,6 +3,7 @@ import * as EventAPIUtil from '../util/event_api_utiil';
 export const RECEIVE_ALL_EVENTS = 'RECEIVE_ALL_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
+export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
 const receiveAllEvents = events => {
   return({
@@ -16,6 +17,10 @@ const receiveEvent = event => ({
   event
 });
 
+export const clearEvents = () => ({
+  type: CLEAR_EVENTS
+})
+
 const receiveErrors = errors => ({
   type: RECEIVE_EVENT_ERRORS,
   errors
@@ -23,6 +28,14 @@ const receiveErrors = errors => ({
 
 export const fetchAllEvents = (payload) => dispatch => {
   return EventAPIUtil.fetchAllEvents(payload)
+    .then(
+      events => dispatch(receiveAllEvents(events.data)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};
+
+export const fetchFilteredEvents = (payload) => dispatch => {
+  return EventAPIUtil.fetchFilteredEvents(payload)
     .then(
       events => dispatch(receiveAllEvents(events.data)),
       errors => dispatch(receiveErrors(errors))

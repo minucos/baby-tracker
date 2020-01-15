@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { closeModal } from '../../actions/ui_actions';
 import { createEvent } from '../../actions/event_actions';
-import { selectCarers } from '../../reducers/selectors';
 
 class SleepForm extends React.Component {
   constructor(props) {

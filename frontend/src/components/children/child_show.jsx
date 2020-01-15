@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchChild } from '../../actions/child_actions';
 import { openModal } from '../../actions/ui_actions';
-import { fetchAllEvents } from '../../actions/event_actions';
+import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby } from '@fortawesome/free-solid-svg-icons';
 import { filterEvents } from '../../reducers/selectors';
@@ -14,7 +14,11 @@ class Child extends React.Component {
   componentDidMount() {
     let { userId,childId } = this.props;
     this.props.fetchChild(userId,childId);
-    this.props.fetchAllEvents(userId,childId);
+    this.props.fetchAllEvents({userId,childId});
+  }
+
+  componentWillUnmount() {
+    this.props.clearEvents();
   }
 
   calcAge() {
@@ -51,20 +55,12 @@ class Child extends React.Component {
 
   render() {
     let { child,
-          userId,
           childId,
           openModal
         } = this.props;
 
     if (!child) return null;
 
-    let carers = child.carers.filter(carer => carer._id !== userId);
-    carers = carers.map(carer => {
-      return(
-        <li key={carer._id}>{carer.fName} {carer.lName}</li>
-      )
-    })
-    
     return(
       <div className="child-show">
         <div className="profile-pic">
@@ -116,8 +112,9 @@ const MSP = (state, ownProps) => {
 
 const MDP = dispatch => ({
   fetchChild: (userId,childId) => dispatch(fetchChild(userId,childId)),
-  fetchAllEvents: (userId,childId) => dispatch(fetchAllEvents(userId,childId)),
-  openModal: (modal,childId) => dispatch(openModal(modal,childId))
+  fetchAllEvents: (payload) => dispatch(fetchAllEvents(payload)),
+  openModal: (modal,childId) => dispatch(openModal(modal,childId)),
+  clearEvents: () => dispatch(clearEvents())
 })
 
 export default connect(MSP,MDP)(Child);

@@ -1,4 +1,4 @@
-import { RECEIVE_ALL_EVENTS, RECEIVE_EVENT } from "../actions/event_actions";
+import { RECEIVE_ALL_EVENTS, RECEIVE_EVENT, CLEAR_EVENTS } from "../actions/event_actions";
 
 const EventReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
@@ -12,6 +12,10 @@ const EventReducer = (oldState = {}, action) => {
       return newState;
     case RECEIVE_EVENT:
       return Object.assign({},oldState,{ [action.event._id]: action.event });
+
+    case CLEAR_EVENTS:
+      return {};
+
     default:
       return oldState;
   }

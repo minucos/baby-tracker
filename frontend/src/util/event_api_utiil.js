@@ -1,8 +1,14 @@
 import axios from 'axios';
 
-export const fetchAllEvents = ({userId, childId, page, limit, filter}) => {
+export const fetchAllEvents = ({userId, childId}) => {
   return axios.get(
-    `/api/users/${userId}/children/${childId}/events?page=${page}&limit=${limit}&filter=${filter}`
+    `/api/users/${userId}/children/${childId}/events`
+  );
+};
+
+export const fetchFilteredEvents = ({userId, childId, page, limit, filter}) => {
+  return axios.get(
+    `/api/users/${userId}/children/${childId}/events/filtered?page=${page}&limit=${limit}&filter=${filter}`
   );
 };
 

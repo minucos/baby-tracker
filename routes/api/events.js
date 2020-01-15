@@ -14,6 +14,24 @@ router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    Event.find({ child: req.params.childId })
+      .populate('eventDetails')
+      .populate('recorder', ['fName', 'lName', '_id', 'email'])
+      .sort({ startTime: -1 })
+      .limit(30)
+      .then(events => {
+        if (events) {
+          return res.json(events);
+        }
+      })
+      .catch(err => res.status(400).json(err));
+  }
+)
+
+router.get(
+  '/filtered',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
     let page = parseInt(req.query.page);
     let limit = parseInt(req.query.limit);
     let filter = req.query.filter;
