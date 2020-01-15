@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const db = require('./config/keys').mongoURI;
+const db = process.env.mongoURI ? process.env.mongoURI : require('./config/keys').mongoURI;
 const passport = require('passport')
 const bodyParser = require('body-parser');
 const users = require('./routes/api/users');
