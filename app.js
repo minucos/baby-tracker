@@ -8,6 +8,13 @@ const users = require('./routes/api/users');
 const events = require('./routes/api/events');
 const path = require('path');
 
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('frontend/build'));
+    app.get('/', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+    })
+};
+
 mongoose
     .connect(db, { useNewUrlParser: true })
     .then(() => console.log('Connected to MongoDB Successfully'))
@@ -22,13 +29,6 @@ app.use(bodyParser.json());
 app.get('/', (req, res) => {
     res.send('Gday mate')
 });
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static('frontend/build'));
-    app.get('/', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-    })
-};
 
 app.use('/api/users', users);
 app.use('/api/events', events);
