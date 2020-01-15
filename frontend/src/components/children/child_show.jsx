@@ -39,9 +39,9 @@ class Child extends React.Component {
     
     let eventDate;
     if (type === 'changes') {
-      eventDate = events[events.length - 1].eventDetails.startTime;
+      eventDate = events[0].eventDetails.startTime;
     } else {
-      eventDate = events[events.length - 1].eventDetails.endTime;
+      eventDate = events[0].eventDetails.endTime;
     }
 
     let time = ((Date.now() - new Date(eventDate)) / (1000 * 60 * 60));

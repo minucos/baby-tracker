@@ -5,7 +5,14 @@ export const selectCarers = (state) => {
 }
 
 export const filterEvents = (state, type) => {
-  return Object.values(state.entities.events).filter(event => event.eventType === type);
+  let events = Object.values(state.entities.events).filter(event => event.eventType === type);
+
+  return events.sort((a, b) => {
+    let dateOne = new Date(a.eventDetails.startTime);
+    let dateTwo = new Date(b.eventDetails.startTime);
+
+    return dateTwo - dateOne;
+  });
 };
 
 export const sortEvents = ({ entities }) => {

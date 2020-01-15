@@ -1,13 +1,20 @@
 import * as EventAPIUtil from '../util/event_api_utiil';
 
 export const RECEIVE_ALL_EVENTS = 'RECEIVE_ALL_EVENTS';
+export const RECEIVE_FILTERED_EVENTS = 'RECEIVE_FILTERED_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
-const receiveAllEvents = ({events,count}) => {
+const receiveAllEvents = events => {
   return({
     type: RECEIVE_ALL_EVENTS,
+    events
+  });
+}
+const receiveFilteredEvents = ({events,count}) => {
+  return({
+    type: RECEIVE_FILTERED_EVENTS,
     events,
     count
   });
@@ -38,7 +45,7 @@ export const fetchAllEvents = (payload) => dispatch => {
 export const fetchFilteredEvents = (payload) => dispatch => {
   return EventAPIUtil.fetchFilteredEvents(payload)
     .then(
-      events => dispatch(receiveAllEvents(events.data)),
+      events => dispatch(receiveFilteredEvents(events.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };
