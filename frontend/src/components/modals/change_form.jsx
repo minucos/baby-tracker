@@ -75,6 +75,7 @@ class ChangeForm extends React.Component {
     let { userId, childId } = this.props;
     let change = this.state;
     change.changedBy = change.changedBy.id;
+    change.startTime = new Date(change.startTime).toISOString();
 
     this.props.createChange(userId, childId, change)
       .then(

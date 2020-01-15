@@ -32,7 +32,9 @@ class SleepForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     let { userId, childId } = this.props;
-
+    let sleep = this.state;
+    sleep.startTime = new Date(sleep.startTime).toISOString();
+    sleep.endTime = new Date(sleep.endTime).toISOString();
     this.props.createSleep(userId, childId, this.state)
       .then(
         () => this.props.closeModal(),

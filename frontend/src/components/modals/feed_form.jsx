@@ -50,6 +50,8 @@ class FeedForm extends React.Component {
     let { userId, childId } = this.props;
     let feed = this.state;
     feed.fedBy = feed.fedBy.id;
+    feed.startTime = new Date(feed.startTime).toISOString();
+    feed.endTime = new Date(feed.endTime).toISOString();
     this.props.createFeed(userId,childId,feed)
       .then(
         () => this.props.closeModal(),
