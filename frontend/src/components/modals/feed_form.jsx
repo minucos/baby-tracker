@@ -8,8 +8,8 @@ import { selectCarers } from '../../reducers/selectors';
 class FeedForm extends React.Component {
   constructor(props) {
     super(props);
-    let startDate = Date.now();
-    let endDate = startDate + (60000 * 30);
+    let endDate = Date.now();
+    let startDate = endDate - (60000 * 30);
     this.state = {
       eventType: 'feed',
       foodFrom: '',

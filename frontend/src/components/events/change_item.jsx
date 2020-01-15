@@ -10,9 +10,10 @@ const ChangeItem = ({ eventDetails, carer, toggleDetails }) => {
           <FontAwesomeIcon className='event-icon' icon={faBaby} rotation={90} />
           <span>Changing</span>
         </div>
-        <span>{new Date(eventDetails.startTime).toDateString()}</span>
+        <span>{new Date(eventDetails.startTime).toLocaleDateString()}</span>
       </div>
       <ul>
+        <li>Time: {new Date(eventDetails.startTime).toLocaleTimeString()}</li>
         <li>Type: {eventDetails.contents.join(', ')}</li>
         <li>Details: {eventDetails.options.join(', ')}</li>
         <li>Changed by: {carer.fName}</li>

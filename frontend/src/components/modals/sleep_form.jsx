@@ -8,7 +8,7 @@ class SleepForm extends React.Component {
   constructor(props) {
     super(props);
     let endDate = Date.now();
-    let startDate = endDate + (60000 * 120);
+    let startDate = endDate - (60000 * 120);
     this.state = {
       eventType: 'sleep',
       notes: '',

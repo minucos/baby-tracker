@@ -18,9 +18,10 @@ const SleepItem = ({ eventDetails, carer, toggleDetails }) => {
           <FontAwesomeIcon className='event-icon' icon={faBed} />
           <span>Sleep</span>
         </div>
-        <span>{new Date(startTime).toDateString()}</span>
+        <span>{new Date(startTime).toLocaleDateString()}</span>
       </div>
       <ul>
+        <li>Time: {new Date(eventDetails.startTime).toLocaleTimeString()}</li>
         <li>Time Slept: {calcDuration(startTime,endTime)} hours</li>
         <li>Notes: {eventDetails.notes}</li>
       </ul>
