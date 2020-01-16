@@ -6,7 +6,7 @@ import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby } from '@fortawesome/free-solid-svg-icons';
-import { filterEvents } from '../../reducers/selectors';
+import { filterEvents, calcTime } from '../../reducers/selectors';
 
 class Child extends React.Component {
 
@@ -44,12 +44,9 @@ class Child extends React.Component {
       eventDate = events[0].eventDetails.endTime;
     }
 
-    let time = (new Date() - new Date(eventDate)) / (1000 * 60 * 60);
-    // let offset = new Date().getTimezoneOffset() / 60;
-
     return(
       <div>
-        {time.toFixed(1)} hrs
+        {calcTime(eventDate).toFixed(1)} hrs
       </div>
     ) 
   }

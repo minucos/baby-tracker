@@ -29,3 +29,23 @@ export const sortEvents = ({ entities }) => {
     return dateTwo-dateOne;
   });
 };
+
+export const calcTime = date => {
+  let UTCtime = (new Date() - new Date(date)) / (1000 * 60 * 60);
+  let offset = new Date().getTimezoneOffset() / 60;
+
+  return UTCtime - offset;
+};
+
+export const applyOffset = date => {
+  let UTCdate = new Date(date);
+  let offset = UTCdate.getTime() + UTCdate.getTimezoneOffset() * 60000;
+  return new Date(UTCdate + offset);
+};
+
+export const calcDuration = (start, end) => {
+  let startTime = new Date(start);
+  let endTime = new Date(end);
+
+  return ((endTime - startTime) / 1000 / 3600);
+};

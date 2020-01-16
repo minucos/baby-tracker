@@ -1,16 +1,10 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBed } from '@fortawesome/free-solid-svg-icons';
-
-const calcDuration = (start, end) => {
-  let startTime = new Date(start);
-  let endTime = new Date(end);
-
-  return ((endTime - startTime) / 1000 / 3600).toFixed(1);
-}
+import { applyOffset, calcDuration } from '../../reducers/selectors';
 
 const SleepItem = ({ eventDetails, carer, toggleDetails }) => {
-  let { startTime, endTime } = eventDetails;
+  let { startTime, endTime, notes } = eventDetails;
   return (
     <div className="event-index-item" onClick={toggleDetails}>
       <div className='item-header'>
@@ -18,13 +12,13 @@ const SleepItem = ({ eventDetails, carer, toggleDetails }) => {
           <FontAwesomeIcon className='event-icon' icon={faBed} />
           <span>Sleep</span>
         </div>
-        <span>{new Date(startTime).toLocaleDateString()}</span>
+        <span>{applyOffset(startTime).toLocaleDateString()}</span>
       </div>
       <ul>
-        <li>Went Down: {new Date(eventDetails.startTime).toLocaleTimeString()}</li>
-        <li>Woke Up: {new Date(eventDetails.endTime).toLocaleTimeString()}</li>
-        <li>Time Slept: {calcDuration(startTime,endTime)} hours</li>
-        <li>Notes: {eventDetails.notes}</li>
+        <li>Went Down: {applyOffset(startTime).toLocaleTimeString()}</li>
+        <li>Woke Up: {applyOffset(endTime).toLocaleTimeString()}</li>
+        <li>Time Slept: {calcDuration(startTime,endTime).toFixed(1)} hours</li>
+        <li>Notes: {notes}</li>
       </ul>
     </div>
   )
