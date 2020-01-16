@@ -40,7 +40,7 @@ export const calcTime = date => {
 export const applyOffset = date => {
   let UTCdate = new Date(date);
   let offset = UTCdate.getTime() + UTCdate.getTimezoneOffset() * 60000;
-  return new Date(UTCdate + offset);
+  return new Date(offset);
 };
 
 export const calcDuration = (start, end) => {
