@@ -17,8 +17,8 @@ class FeedForm extends React.Component {
       startingSide: 'n/a',
       notes: '',
       fedBy: this.props.user,
-      startTime: this.formatDate(new Date(startDate)),
-      endTime: this.formatDate(new Date(endDate)),
+      startTime: new Date(startDate),
+      endTime: new Date(endDate)
     };
     this.fromOptions = ['breast','bottle','other'];
     this.typeOptions = ['milk','formula','solids'];
@@ -56,20 +56,6 @@ class FeedForm extends React.Component {
       .then(
         () => this.props.closeModal(),
       );
-  }
-
-  formatDate(date) {
-    let day = date.getDate();
-    let month = (parseInt(date.getMonth()) + 1).toString();
-    let year = date.getFullYear();
-    let hrs = date.getHours();
-    let mins = date.getMinutes();
-    day = day < 10 ? '0' + day : day;
-    month = month < 10 ? '0' + month : month;
-    hrs = hrs < 10 ? '0' + hrs : hrs;
-    mins = mins < 10 ? '0' + mins : mins;
-
-    return `${year}-${month}-${day}T${hrs}:${mins}`;
   }
 
   foodFromOptions() {
