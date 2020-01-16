@@ -6,6 +6,7 @@ const EventReducer = (oldState = {}, action) => {
   let newState = {};
   switch (action.type) {
     case RECEIVE_ALL_EVENTS:
+      debugger
       action.events.forEach(event => {
         newState[event._id] = event;
       })

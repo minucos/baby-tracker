@@ -76,7 +76,7 @@ router.post(
       return res.status(400).json(errors);
     }
 
-    let eventDetail;
+    let eventDetail; 
     switch (req.body.eventType) {
       case 'sleep':
         eventDetail = new Sleep(req.body.eventInfo);
