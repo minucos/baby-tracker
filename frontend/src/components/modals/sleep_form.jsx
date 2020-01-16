@@ -34,6 +34,9 @@ class SleepForm extends React.Component {
     let { userId, childId } = this.props;
     let sleep = this.state;
 
+    sleep.startDate = this.formatUTCDate(new Date(sleep.startDate));
+    sleep.endDate = this.formatUTCDate(new Date(sleep.endDate));
+
     console.log(sleep.startTime)
     this.props.createSleep(userId, childId, this.state)
       .then(
@@ -47,6 +50,20 @@ class SleepForm extends React.Component {
     let year = date.getFullYear();
     let hrs = date.getHours();
     let mins = date.getMinutes();
+    day = day < 10 ? '0' + day : day;
+    month = month < 10 ? '0' + month : month;
+    hrs = hrs < 10 ? '0' + hrs : hrs;
+    mins = mins < 10 ? '0' + mins : mins;
+
+    return `${year}-${month}-${day}T${hrs}:${mins}`;
+  }
+
+  formatUTCDate(date) {
+    let day = date.getUTCDate();
+    let month = (parseInt(date.getUTCMonth()) + 1).toString();
+    let year = date.getUTCFullYear();
+    let hrs = date.getUTCHours();
+    let mins = date.getUTCMinutes();
     day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
     hrs = hrs < 10 ? '0' + hrs : hrs;

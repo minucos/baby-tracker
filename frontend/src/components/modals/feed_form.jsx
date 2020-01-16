@@ -17,8 +17,8 @@ class FeedForm extends React.Component {
       startingSide: 'n/a',
       notes: '',
       fedBy: this.props.user,
-      startTime: this.formatDate(new Date(startDate)),
-      endTime: this.formatDate(new Date(endDate)),
+      startTime: this.formatLocalDate(new Date(startDate)),
+      endTime: this.formatLocalDate(new Date(endDate)),
     };
     this.fromOptions = ['breast','bottle','other'];
     this.typeOptions = ['milk','formula','solids'];
@@ -51,6 +51,9 @@ class FeedForm extends React.Component {
     let feed = this.state;
     feed.fedBy = feed.fedBy.id;
 
+    feed.startDate = this.formatUTCDate(new Date(feed.startDate));
+    feed.endDate = this.formatUTCDate(new Date(feed.endDate));
+
     console.log(feed.startTime)
     this.props.createFeed(userId,childId,feed)
       .then(
@@ -58,12 +61,26 @@ class FeedForm extends React.Component {
       );
   }
 
-  formatDate(date) {
+  formatLocalDate(date) {
     let day = date.getDate();
     let month = (parseInt(date.getMonth()) + 1).toString();
     let year = date.getFullYear();
     let hrs = date.getHours();
     let mins = date.getMinutes();
+    day = day < 10 ? '0' + day : day;
+    month = month < 10 ? '0' + month : month;
+    hrs = hrs < 10 ? '0' + hrs : hrs;
+    mins = mins < 10 ? '0' + mins : mins;
+
+    return `${year}-${month}-${day}T${hrs}:${mins}`;
+  }
+
+  formatUTCDate(date) {
+    let day = date.getUTCDate();
+    let month = (parseInt(date.getUTCMonth()) + 1).toString();
+    let year = date.getUTCFullYear();
+    let hrs = date.getUTCHours();
+    let mins = date.getUTCMinutes();
     day = day < 10 ? '0' + day : day;
     month = month < 10 ? '0' + month : month;
     hrs = hrs < 10 ? '0' + hrs : hrs;
