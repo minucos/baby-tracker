@@ -69,7 +69,7 @@ class SleepForm extends React.Component {
     hrs = hrs < 10 ? '0' + hrs : hrs;
     mins = mins < 10 ? '0' + mins : mins;
 
-    return `${year}-${month}-${day}T${hrs}:${mins}`;
+    return `${year}-${month}-${day}T${hrs}:${mins}Z`;
   }
 
   render() {
