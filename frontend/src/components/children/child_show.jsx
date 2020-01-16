@@ -44,12 +44,12 @@ class Child extends React.Component {
       eventDate = events[0].eventDetails.endTime;
     }
 
-    let time = ((Date.now() - new Date(eventDate)) / (1000 * 60 * 60));
-    let offset = new Date().getTimezoneOffset() / 60;
+    let time = (new Date() - new Date(eventDate)) / (1000 * 60 * 60);
+    // let offset = new Date().getTimezoneOffset() / 60;
 
     return(
       <div>
-        {(time).toFixed(1)} hrs
+        {time.toFixed(1)} hrs
       </div>
     ) 
   }
