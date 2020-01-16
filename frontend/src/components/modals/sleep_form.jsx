@@ -86,7 +86,7 @@ class SleepForm extends React.Component {
       <div className="modal-container" onClick={closeModal}>
         <div className="form" onClick={(e) => e.stopPropagation()}>
           <div className="form-header">
-            When did {child.name} go to sleep?
+            When did {child.name} go down?
           </div>
           <input
             type="datetime-local"

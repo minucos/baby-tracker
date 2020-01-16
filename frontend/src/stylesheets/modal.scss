@@ -23,16 +23,26 @@
     align-items: center;
 
     .form-header {
-      font-size: 25px;
-      padding: 5px 0;
+      font-size: 27px;
+      padding: 7px 0;
       display: flex;
       align-items: center;
     }
     .time-header {
       font-size: 20px;
-      padding: 15px 0;
+      margin: 15px;
       display: flex;
       align-items: center;
+      width: 90%;
+
+      span {
+        padding-left: 10px;
+        width: 40px;
+      }
+
+      div {
+        width: calc(100% - 40px);
+      }
     }
 
     .form-options {
@@ -44,7 +54,7 @@
       button {
         height: 50px;
         margin: 5px;
-        padding: 5px;
+        padding: 5px 10px;
         border-radius: 10px;
         background-color: $blue;
         color: $white;
@@ -62,6 +72,7 @@
       width: 300px;
       background-color: #ffffff;
       text-align: center;
+      border-radius: 10px;
 
       ul {
         display: none;
@@ -87,19 +98,22 @@
       width: 80%;
       padding: 5px;
       font-size: 20px;
+      border-radius: 10px;
     }
 
+
     input {
-      height: 20px;
-      font-size: 14px;
+      height: 30px;
+      font-size: 16px;
       margin-left: 10px;
-      width: 215px;
+      width: 70%;
+      border-radius: 10px;
     }
 
     .submit-button {
       margin: 5px;
       margin-bottom: 20px;
-      // width: 80%;
+      width: 80%;
       height: 50px;
       border-radius: 10px;
       background-color: $orange;
