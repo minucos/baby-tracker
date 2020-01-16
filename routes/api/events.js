@@ -70,8 +70,9 @@ router.post(
     req.body.recorder = req.params.userId;
     req.body.child = req.params.childId;
     req.body.eventInfo = parseEventInfo(req.body);
-
+    
     const { errors, isValid } = ValidateEventInputs(req.body);
+
     if (!isValid) {
       return res.status(400).json(errors);
     }
@@ -96,6 +97,7 @@ router.post(
     console.log(eventDetail.startTime);
     eventDetail.save()
       .then(eventDetail => {
+        
         const event = new Event({
           eventType: req.body.eventType,
           startTime: eventDetail.startTime,
@@ -106,6 +108,7 @@ router.post(
     
         event.save()
           .then(event => {
+            
             Event.findOne({ _id: event._id })
               .populate('eventDetails')
               .populate('recorder', ['fName', 'lName', '_id', 'email'])

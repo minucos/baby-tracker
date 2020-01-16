@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import moment from 'moment';
 import { closeModal } from '../../actions/ui_actions';
 import { createEvent } from '../../actions/event_actions';
 import { selectCarers } from '../../reducers/selectors';
@@ -74,8 +75,7 @@ class ChangeForm extends React.Component {
     e.preventDefault();
     let { userId, childId } = this.props;
     let change = this.state;
-    change.changedBy = change.changedBy.id;
-    change.startTime = new Date(change.startTime).toISOString();
+    change.changedBy = change.changedBy.id
 
     console.log(change.startTime)
     this.props.createChange(userId, childId, change)

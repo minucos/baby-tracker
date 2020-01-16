@@ -13,23 +13,27 @@ const ValidChange = (data) => {
   data.options = data.options.filter(el => 
     poopOptions.includes(el) || peeOptions.includes(el) 
   );
-
+    
   if (!Validator.isMongoId(data.changedBy)) {
     errors.changedBy = 'recorder is invalid';
   }
+
   if (!data.contents.every(el => changeTypes.includes(el))) {
     errors.contents = "Invalid contents";
   }
+  
   if (!data.contents.includes('pee')) {
     if (data.options.some(el => peeOptions.includes(el))) {
       errors.options = "Invalid change options";
     }
   }
+  
   if (!data.contents.includes('poo')) {
     if (data.options.some(el => poopOptions.includes(el))) {
       errors.options = "Invalid change options";
     }
   }
+  
   if (Validator.isEmpty(data.startTime)) {
     errors.startTime = 'startTime cannot be blank';
   }
@@ -39,7 +43,7 @@ const ValidChange = (data) => {
   if (isNaN(data.startTime.getDate())) {
     errors.startTime = 'please enter a valid startTime';
   }
-
+  
   return {
     errors,
     isValid: Object.keys(errors).length === 0
