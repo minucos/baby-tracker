@@ -16,7 +16,8 @@ const Navbar = (props) => {
   if (loggedIn) {
   options = [
     <li key='1'>{user.fName} {user.lName}</li>,
-    <li key='2' onClick={() => logout()}>Logout</li>
+    <Link key='2' to="/child/new"><li>Add Child</li></Link>,
+    <li key='3' onClick={() => logout()}>Logout</li>
   ];
   } 
 

@@ -8,6 +8,7 @@ import HomePage from './components/homepage';
 import SignupFormContainer from './components/signup_login/signup_form_container';
 import LoginFormContainer from './components/signup_login/login_form_container';
 import ChildShowContainer from './components/children/child_show';
+import NewChildContainer from './components/children/new_child_form';
 import EventsIndexContainer from './components/events/events_index';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Switch>
         <AuthRoute path="/login" component={LoginFormContainer}/>
         <AuthRoute path="/signup" component={SignupFormContainer}/>
+        <ProtectedRoute exact path="/child/new" component={NewChildContainer}/>
         <ProtectedRoute exact path="/child/:id" component={ChildShowContainer}/>
         <ProtectedRoute exact path="/child/:id/events" component={EventsIndexContainer}/>
         <ProtectedRoute exact path="/" component={HomePage}/>
