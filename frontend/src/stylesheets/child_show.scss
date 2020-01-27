@@ -35,14 +35,18 @@
     margin: 10px 0;
   }
 
-  .stats {
-    display: flex;
-    justify-content: space-around;
-
-    .stat-details {
-      font-size: 25px;
-      width: 120px;
+  table {
+    font-size: 20px;
+    border-collapse: collapse;
+    
+    th, td {
       text-align: center;
+      padding: 5px;
+      border-bottom: 1px solid $lightgrey;
+    }
+
+    .first-col {
+      text-align: left;
     }
   }
 
@@ -77,6 +81,6 @@
     border-radius: 10px;
     line-height: 60px;
     text-align: center;
-    margin-top: 10px;
+    margin: 10px 0;
   }
 }

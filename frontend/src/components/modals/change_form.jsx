@@ -79,7 +79,6 @@ class ChangeForm extends React.Component {
 
     change.startDate = this.formatUTCDate(new Date(change.startDate));
 
-    console.log(change.startTime)
     this.props.createChange(userId, childId, change)
       .then(
         () => this.props.closeModal(),

@@ -9,5 +9,5 @@ export const fetchChild = (userId, childId) => {
 };
 
 export const createChild = (userId, child) => {
-  return axios.post(`/api/users/${userId}/children`)
+  return axios.post(`/api/users/${userId}/children`, child)
 };

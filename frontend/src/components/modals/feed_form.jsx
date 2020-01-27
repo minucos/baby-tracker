@@ -54,7 +54,6 @@ class FeedForm extends React.Component {
     feed.startDate = this.formatUTCDate(new Date(feed.startDate));
     feed.endDate = this.formatUTCDate(new Date(feed.endDate));
 
-    console.log(feed.startTime)
     this.props.createFeed(userId,childId,feed)
       .then(
         () => this.props.closeModal(),

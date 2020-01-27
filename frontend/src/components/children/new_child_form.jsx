@@ -5,7 +5,6 @@ import { createChild } from '../../actions/child_actions';
 class NewChildForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       name: '',
       dob: '',
@@ -13,55 +12,25 @@ class NewChildForm extends React.Component {
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.updateField = this.updateField.bind(this);
   }
 
   updateField(field) {
     return (e) => {
-      e.preventDefault();
-      let value = e.target.value;
-
-      if (field === 'foodFrom' && value !== this.state.foodFrom) {
-        this.setState({
-          [field]: value,
-          startingSide: 'n/a',
-          foodType: ''
-        })
-      } else {
-        this.setState({
-          [field]: value
-        })
-      }
+      this.setState({
+        [field]: e.target.value
+      })
     }
   };
 
   handleSubmit(e) {
     e.preventDefault();
-    let { userId, childId } = this.props;
-    let feed = this.state;
-    feed.fedBy = feed.fedBy.id;
+    let { userId } = this.props;
 
-    feed.startDate = this.formatUTCDate(new Date(feed.startDate));
-    feed.endDate = this.formatUTCDate(new Date(feed.endDate));
-
-    console.log(feed.startTime)
-    this.props.createFeed(userId, childId, feed)
+    this.props.createChild(userId,this.state)
       .then(
-        () => this.props.closeModal(),
+        () => this.props.history.push('/')
       );
-  }
-
-  formatLocalDate(date) {
-    let day = date.getDate();
-    let month = (parseInt(date.getMonth()) + 1).toString();
-    let year = date.getFullYear();
-    let hrs = date.getHours();
-    let mins = date.getMinutes();
-    day = day < 10 ? '0' + day : day;
-    month = month < 10 ? '0' + month : month;
-    hrs = hrs < 10 ? '0' + hrs : hrs;
-    mins = mins < 10 ? '0' + mins : mins;
-
-    return `${year}-${month}-${day}T${hrs}:${mins}`;
   }
 
   formatUTCDate(date) {
@@ -80,10 +49,11 @@ class NewChildForm extends React.Component {
 
   render() {
     let { name, dob, sex } = this.state;
+
     return(
       <div className="new-child-form">
         <h1>Create a new child</h1>
-        <form onSubmit={(e) => this.submit(e)}>
+        <form onSubmit={this.handleSubmit}>
           <h3>Name:</h3>
           <input 
             type="text"
@@ -93,17 +63,18 @@ class NewChildForm extends React.Component {
           />
           <h3>Date of Birth:</h3>
           <input 
-            type="datetime-local"
+            type="date"
             value={dob}
             onChange={this.updateField('dob')}
           />
           <h3>Sex:</h3>
-          <div className="sex-input">
+          <div className="sex-input" onChange={this.updateField('sex')}>
             <input 
               className="radio-button"
               type="radio" 
               name="sex"
               value="female"
+              defaultChecked={sex === 'female'}
             /> 
             <span>Female</span>
             <input 
@@ -111,6 +82,7 @@ class NewChildForm extends React.Component {
               type="radio" 
               name="sex"
               value="male"
+              defaultChecked={sex === 'male'}
             />
             <span>Male</span>
             <input 
@@ -118,6 +90,7 @@ class NewChildForm extends React.Component {
               type="radio" 
               name="sex"
               value="other"
+              defaultChecked={sex === 'other'}
             />
             <span>Other</span>
           </div>
@@ -128,4 +101,12 @@ class NewChildForm extends React.Component {
   }
 };
 
-export default connect(null,null)(NewChildForm);
+const MSP = state => ({
+  userId: state.session.user.id
+});
+
+const MDP = dispatch => ({
+  createChild: (userId, child) => dispatch(createChild(userId,child))
+})
+
+export default connect(MSP,MDP)(NewChildForm);

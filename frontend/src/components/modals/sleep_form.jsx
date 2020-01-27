@@ -37,7 +37,6 @@ class SleepForm extends React.Component {
     sleep.startDate = this.formatUTCDate(new Date(sleep.startDate));
     sleep.endDate = this.formatUTCDate(new Date(sleep.endDate));
 
-    console.log(sleep.startTime)
     this.props.createSleep(userId, childId, this.state)
       .then(
         () => this.props.closeModal(),

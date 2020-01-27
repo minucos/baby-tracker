@@ -6,7 +6,7 @@ import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby } from '@fortawesome/free-solid-svg-icons';
-import { filterEvents, calcTime } from '../../reducers/selectors';
+import { filterEvents, calcTime, applyOffset } from '../../reducers/selectors';
 
 class Child extends React.Component {
 
@@ -51,6 +51,16 @@ class Child extends React.Component {
     ) 
   }
 
+  calcDailyTotal(type) {
+    let events = this.props[type];
+    let today = new Date().toLocaleDateString();
+    console.log(today)
+
+    return events.filter(event => {
+      return new Date(event.startTime).toLocaleDateString() === today
+    }).length;
+  }
+
   render() {
     let { child,
           childId,
@@ -68,21 +78,27 @@ class Child extends React.Component {
           <h1>{child.name}</h1>
           <h2>({this.calcAge()})</h2>
         </div>
-        <h3>Time since last</h3>
-        <div className="stats">
-          <div className="stat-details">
-            <div>Feed:</div>
-            {this.calcTimeAgo('feeds')}
-          </div>
-          <div className="stat-details">
-            <div>Change:</div>
-            {this.calcTimeAgo('changes')}
-          </div>
-          <div className="stat-details">
-            <div>Sleep:</div>
-            {this.calcTimeAgo('sleeps')}
-          </div>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th className="first-col">Event</th>
+              <th>Since Last</th>
+              <th>Daily Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="first-col">Feed</td>
+              <td>{this.calcTimeAgo('feeds')}</td>
+              <td>{this.calcDailyTotal('feeds')}</td>
+            </tr>
+            <tr>
+              <td className="first-col">Change</td>
+              <td>{this.calcTimeAgo('changes')}</td>
+              <td>{this.calcDailyTotal('changes')}</td>
+            </tr>
+          </tbody>
+        </table>
         <h3>Log Event:</h3>
         <ul className='event-options'>
           <li onClick={() => openModal('feed',childId)}>Feed</li>
