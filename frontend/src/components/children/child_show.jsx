@@ -23,13 +23,20 @@ class Child extends React.Component {
 
   calcAge() {
     let { child } = this.props;
-    let diff = ((Date.now() - new Date(child.dob)) / 86400000 / 365).toFixed(1);
+    let diff = ((Date.now() - new Date(child.dob)) / 86400000 / 365);
 
     if (diff < 1) {
-      return `${Math.round(12 * diff)} months`;
+      console.log(diff);
+      let age = Math.round(12 * diff)
+
+      if (age === 0) {
+        return `${Math.round(52 * diff)} weeks`;
+      } else {
+        return `${age} months`;
+      }
     }
 
-    return `${diff} years`;
+    return `${diff.toFixed(1)} years`;
   }
 
   calcTimeAgo(type) {
@@ -53,11 +60,11 @@ class Child extends React.Component {
 
   calcDailyTotal(type) {
     let events = this.props[type];
-    let today = new Date().toLocaleDateString();
-    console.log(today)
+    let date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    let today = date.toISOString().split('T')[0];
 
     return events.filter(event => {
-      return new Date(event.startTime).toLocaleDateString() === today
+      return event.startTime.split('T')[0] === today
     }).length;
   }
 
