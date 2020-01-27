@@ -4,8 +4,9 @@ export const selectCarers = (state) => {
   return currentUser.concat(others);
 }
 
-export const filterEvents = (state, type) => {
-  let events = Object.values(state.entities.events).filter(event => event.eventType === type);
+export const filterEvents = (state, type, childId) => {
+  let events = Object.values(state.entities.events)
+    .filter(event => event.eventType === type && event.child === childId);
 
   return events.sort((a, b) => {
     let aDate = a.eventDetails.endTime ? a.eventDetails.endTime : a.eventDetails.startTime;

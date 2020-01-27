@@ -1,4 +1,5 @@
 import { RECEIVE_ALL_EVENTS, RECEIVE_EVENT, CLEAR_EVENTS, RECEIVE_FILTERED_EVENTS } from "../actions/event_actions";
+import { RECEIVE_USER_LOGOUT } from "../actions/session_actions";
 
 const EventReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
@@ -21,6 +22,9 @@ const EventReducer = (oldState = {}, action) => {
       return Object.assign({},oldState,{ [action.event._id]: action.event });
 
     case CLEAR_EVENTS:
+      return {};
+
+    case RECEIVE_USER_LOGOUT:
       return {};
 
     default:

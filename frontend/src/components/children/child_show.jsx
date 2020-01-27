@@ -124,9 +124,9 @@ const MSP = (state, ownProps) => {
   return({
     child: ownProps.child,
     userId: state.session.user.id,
-    feeds: filterEvents(state, 'feed'),
-    changes: filterEvents(state, 'change'),
-    sleeps: filterEvents(state, 'sleep'),
+    feeds: filterEvents(state, 'feed', ownProps.child._id),
+    changes: filterEvents(state, 'change', ownProps.child._id),
+    sleeps: filterEvents(state, 'sleep', ownProps.child._id),
     childId: ownProps.child._id
   })
 };

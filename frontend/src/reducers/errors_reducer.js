@@ -1,4 +1,4 @@
-import { RECEIVE_SESSION_ERRORS, CLEAR_SESSION_ERRORS } from "../actions/session_actions";
+import { RECEIVE_SESSION_ERRORS, CLEAR_SESSION_ERRORS, RECEIVE_USER_LOGOUT } from "../actions/session_actions";
 import { RECEIVE_CHILD_ERRORS } from "../actions/child_actions";
 
 const ErrorsReducer = (oldState = {}, action) => {
@@ -11,6 +11,10 @@ const ErrorsReducer = (oldState = {}, action) => {
       return {};
     case RECEIVE_CHILD_ERRORS:
       return oldState
+
+    case RECEIVE_USER_LOGOUT:
+      return {};
+      
     default:
       return oldState;
   }
