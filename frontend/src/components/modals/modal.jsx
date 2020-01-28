@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import FeedFormContainer from './feed_form';
 import ChangeFormContainer from './change_form';
 import SleepFormContainer from './sleep_form';
+import DeleteConfirmationContainer from './delete_confirmation';
 
 const Modal = (props) => {
   switch (props.modal) {
@@ -14,11 +15,14 @@ const Modal = (props) => {
       return(
         <ChangeFormContainer />
       )
-
     case 'sleep':
       return(
         <SleepFormContainer />
       )
+    case 'delete':
+        return(
+          <DeleteConfirmationContainer />
+        )
     default:
       return null;
   }

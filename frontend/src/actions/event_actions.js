@@ -3,6 +3,7 @@ import * as EventAPIUtil from '../util/event_api_utiil';
 export const RECEIVE_ALL_EVENTS = 'RECEIVE_ALL_EVENTS';
 export const RECEIVE_FILTERED_EVENTS = 'RECEIVE_FILTERED_EVENTS';
 export const RECEIVE_EVENT = 'RECEIVE_EVENT';
+export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
 
@@ -22,6 +23,11 @@ const receiveFilteredEvents = ({events,count}) => {
 
 const receiveEvent = event => ({
   type: RECEIVE_EVENT,
+  event
+});
+
+const removeEvent = event => ({
+  type: REMOVE_EVENT,
   event
 });
 
@@ -62,6 +68,14 @@ export const createEvent = (userId,childId, event) => dispatch => {
   return EventAPIUtil.createEvent(userId,childId, event)
     .then(
       event => dispatch(receiveEvent(event.data)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};
+
+export const deleteEvent = (userId,childId, eventId) => dispatch => {
+  return EventAPIUtil.deleteEvent(userId,childId, eventId)
+    .then(
+      event => dispatch(removeEvent(event.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };

@@ -120,4 +120,34 @@ router.post(
   }
 );
 
+router.delete('/:id',(req,res) => {
+  Event.findById(req.params.id)
+    .then(event => {
+      switch (event.eventType) {
+        case 'sleep':
+          eventDetail = Sleep.deleteOne({ _id: event.eventDetails });
+          break;
+
+        case 'feed':
+          eventDetail = Feed.deleteOne({ _id: event.eventDetails });
+          break;
+
+        case 'change':
+          eventDetail = Change.deleteOne({ _id: event.eventDetails });
+          break;
+
+        default:
+          break;
+      }
+
+      eventDetail.then(() => {
+        Event.deleteOne({_id: event._id})
+          .then(() => {
+            return res.json(event)
+          })
+      })
+    })
+    .catch((err) => res.status(400).json(err))
+})
+
 module.exports = router;

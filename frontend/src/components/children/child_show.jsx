@@ -44,12 +44,14 @@ class Child extends React.Component {
 
     if (events.length === 0) return "";
     
-    let eventDate;
-    if (type === 'changes') {
-      eventDate = events[0].eventDetails.startTime;
-    } else {
-      eventDate = events[0].eventDetails.endTime;
-    }
+    // let eventDate;
+    // if (type === 'changes') {
+    //   eventDate = events[0].eventDetails.startTime;
+    // } else {
+    //   eventDate = events[0].eventDetails.endTime;
+    // }
+
+    let eventDate = events[0].eventDetails.startTime;
 
     return(
       <div>

@@ -10,7 +10,7 @@ const toggleDetails = (e) => {
 }
 
 const EventIndexItem = props => {
-  let { event } = props;
+  let { event, childId, userId, deleteEvent } = props;
   let eventDetails = event.eventDetails;
 
   let carer;
@@ -19,17 +19,41 @@ const EventIndexItem = props => {
       carer = props.carers.find(carer => carer._id === eventDetails.fedBy);
 
       return(
-        <FeedItem carer={carer} eventDetails={eventDetails} toggleDetails={toggleDetails} />
+        <FeedItem 
+          carer={carer} 
+          eventDetails={eventDetails} 
+          toggleDetails={toggleDetails} 
+          childId={childId}
+          userId={userId}
+          deleteEvent={deleteEvent}
+          eventId={event._id}  
+        />
       )
     case 'change':
       carer = props.carers.find(carer => carer._id === eventDetails.changedBy);
 
       return (
-        <ChangeItem carer={carer} eventDetails={eventDetails} toggleDetails={toggleDetails} />
+        <ChangeItem 
+          carer={carer} 
+          eventDetails={eventDetails} 
+          toggleDetails={toggleDetails} 
+          childId={childId}
+          userId={userId}
+          deleteEvent={deleteEvent}
+          eventId={event._id}  
+        />
       )
     case 'sleep':
       return(
-        <SleepItem carer={carer} eventDetails={eventDetails} toggleDetails={toggleDetails} />
+        <SleepItem 
+          carer={carer} 
+          eventDetails={eventDetails} 
+          toggleDetails={toggleDetails} 
+          childId={childId}
+          userId={userId}
+          deleteEvent={deleteEvent}
+          eventId={event._id}  
+        />
       )
     default:
       return null;

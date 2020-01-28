@@ -19,3 +19,7 @@ export const fetchEvent = (userId, childId, eventId) => (
 export const createEvent = (userId, childId, event) => (
   axios.post(`/api/users/${userId}/children/${childId}/events`, event)
 );
+
+export const deleteEvent = (userId, childId, eventId) => (
+  axios.delete(`/api/users/${userId}/children/${childId}/events/${eventId}`)
+);

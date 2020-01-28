@@ -1,11 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { applyOffset, calcDuration } from '../../reducers/selectors';
+import { openModal } from '../../actions/ui_actions';
 
-const FeedItem = ({eventDetails, carer, toggleDetails}) => {
+
+const FeedItem = (props) => {
+  let { 
+    eventDetails, 
+    carer, 
+    toggleDetails, 
+    userId, 
+    childId, 
+    eventId, 
+    openModal } = props;
   let { startTime, endTime } = eventDetails;
 
+  const deleteButton = (
+    <li onClick={(e) => {
+        e.stopPropagation();
+        openModal(childId,eventId);
+      }}
+    >
+      <FontAwesomeIcon className='event-icon' icon={faTrashAlt} />
+      <span>Remove</span>
+    </li>
+  )
   return(
     <div className="event-index-item" onClick={toggleDetails}>
       <div className='item-header'>
@@ -22,9 +43,14 @@ const FeedItem = ({eventDetails, carer, toggleDetails}) => {
         {eventDetails.startingSide === 'n/a' ? null : <li>Starting Side: {eventDetails.startingSide}</li> }
         <li>Fed by: {carer.fName}</li>
         <li>Notes: {eventDetails.notes}</li>
+        {userId === carer._id ? deleteButton : null}
       </ul>
     </div>
   )
 };
 
-export default FeedItem;
+const MDP = dispatch => ({
+  openModal: (childId,eventId) => dispatch(openModal('delete',childId,eventId))
+})
+
+export default connect(null,MDP)(FeedItem);

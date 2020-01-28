@@ -120,6 +120,28 @@
       color: $blue;
       font-size: 40px;
     }
+
+    .delete-h1 {
+      font-size: 30px;
+      color: $blue;
+      padding-top: 10px;
+    }
+
+    .delete-button {
+      margin: 10px 0;
+      font-size: 30px;
+      height: 50px;
+      width: 200px;
+      border-radius: 10px;
+      border-color: $orange;
+      background-color: $orange;
+      color: $blue;
+
+      span {
+        color: $white;
+        padding-left: 10px;
+      }
+    }
   }
 
   .hidden {

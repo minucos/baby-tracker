@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchChild } from '../../actions/child_actions';
+import { deleteEvent } from '../../actions/event_actions';
 import { fetchFilteredEvents } from '../../actions/event_actions';
 import { openModal } from '../../actions/ui_actions';
 import { sortEvents } from '../../reducers/selectors';
@@ -63,7 +64,7 @@ class EventsIndex extends React.Component {
   }
 
   render() {
-    let { events, child, totalEvents } = this.props;
+    let { events, child, totalEvents, childId, userId, deleteEvent } = this.props;
     let { filter, page, limit } = this.state;
     let lastPage = totalEvents === (page+1) * limit || events.length < limit;
     if (events.length === 0) {
@@ -76,7 +77,14 @@ class EventsIndex extends React.Component {
 
     let allEvents = events.map(event => {
       return(
-        <EventIndexItem event={event} key={event._id} carers={child.carers}/>
+        <EventIndexItem 
+          key={event._id} 
+          event={event} 
+          carers={child.carers}
+          userId={userId}
+          childId={childId}
+          deleteEvent={deleteEvent}
+        />
       )
     })
 
@@ -145,7 +153,8 @@ const MSP = (state, ownProps) => {
 const MDP = dispatch => ({
   fetchChild: (userId, childId) => dispatch(fetchChild(userId, childId)),
   fetchFilteredEvents: (payload) => dispatch(fetchFilteredEvents(payload)),
-  openModal: (modal) => dispatch(openModal(modal))
+  openModal: (modal) => dispatch(openModal(modal)),
+  deleteEvent: (userId, childId, eventId) => dispatch(deleteEvent(userId, childId, eventId))
 })
 
 export default connect(MSP,MDP)(EventsIndex);

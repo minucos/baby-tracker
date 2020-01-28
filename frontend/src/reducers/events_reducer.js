@@ -1,4 +1,10 @@
-import { RECEIVE_ALL_EVENTS, RECEIVE_EVENT, CLEAR_EVENTS, RECEIVE_FILTERED_EVENTS } from "../actions/event_actions";
+import { 
+  RECEIVE_ALL_EVENTS, 
+  RECEIVE_EVENT, 
+  CLEAR_EVENTS, 
+  RECEIVE_FILTERED_EVENTS,
+  REMOVE_EVENT
+} from "../actions/event_actions";
 import { RECEIVE_USER_LOGOUT } from "../actions/session_actions";
 
 const EventReducer = (oldState = {}, action) => {
@@ -20,6 +26,11 @@ const EventReducer = (oldState = {}, action) => {
       
     case RECEIVE_EVENT:
       return Object.assign({},oldState,{ [action.event._id]: action.event });
+
+    case REMOVE_EVENT:
+      newState = Object.assign({},oldState);
+      delete newState[action.event._id];
+      return newState;
 
     case CLEAR_EVENTS:
       return {};
