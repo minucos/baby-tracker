@@ -44,6 +44,7 @@ const EventIndexItem = props => {
         />
       )
     case 'sleep':
+      carer = props.carers.find(carer => carer._id === event.recorder._id);
       return(
         <SleepItem 
           carer={carer} 

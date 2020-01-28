@@ -19,8 +19,6 @@ const SleepItem = (props) => {
   const deleteButton = (
     <li onClick={(e) => {
       e.stopPropagation();
-
-      // deleteEvent(userId,childId,eventId);
       openModal(childId, eventId);
     }}
     >
