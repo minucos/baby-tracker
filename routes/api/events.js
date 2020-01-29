@@ -94,7 +94,6 @@ router.post(
       default:
         break;
     }
-    console.log(eventDetail.startTime);
     eventDetail.save()
       .then(eventDetail => {
         

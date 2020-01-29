@@ -26,11 +26,10 @@ class Child extends React.Component {
     let diff = ((Date.now() - new Date(child.dob)) / 86400000 / 365);
 
     if (diff < 1) {
-      console.log(diff);
-      let age = Math.round(12 * diff)
+      let age = Math.floor(12 * diff)
 
       if (age === 0) {
-        return `${Math.round(52 * diff)} weeks`;
+        return `${Math.floor(52 * diff)} weeks`;
       } else {
         return `${age} months`;
       }
