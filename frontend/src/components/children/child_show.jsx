@@ -108,20 +108,22 @@ class Child extends React.Component {
           </thead>
           <tbody>
             <tr>
-              <td className="first-col">Feed</td>
+              <td className="first-col">Feeds</td>
               <td>{this.calcTimeAgo('feeds')}</td>
               <td>{this.calcDailyTotal('feeds')}</td>
             </tr>
-            <tr>
-              <td className="first-col">Change</td>
+            <tr className="changes-row">
+              <td className="first-col">Changes</td>
               <td>{this.calcTimeAgo('changes')}</td>
               <td>
                 <div>{this.calcDailyTotal('changes')}</div>
-                <div>
-                  <span>({this.calcContentsTotal('poo')} poos / </span>
-                  <span>{this.calcContentsTotal('pee')} pees )</span>
-                </div>
-                
+              </td>
+            </tr>
+            <tr className="contents-row">
+              <td></td>
+              <td></td>
+              <td>
+                ({this.calcContentsTotal('poo')} poos / {this.calcContentsTotal('pee')} pees )
               </td>
             </tr>
           </tbody>

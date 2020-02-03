@@ -50,7 +50,11 @@
       text-align: left;
     }
 
-    span {
+    .changes-row > td {
+      border: none;
+    }
+
+    .contents-row > td {
       font-size: 15px;
     }
   }
