@@ -69,6 +69,18 @@ class Child extends React.Component {
     }).length;
   }
 
+  calcContentsTotal(type) {
+    let events = this.props['changes'];
+    let date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+    let today = date.toISOString().split('T')[0];
+
+    return events.filter(event => {
+      let includesType = event.eventDetails.contents.includes(type)
+      let isToday = event.startTime.split('T')[0] === today;
+      return  isToday && includesType;
+    }).length;
+  }
+
   render() {
     let { child,
           childId,
@@ -103,7 +115,14 @@ class Child extends React.Component {
             <tr>
               <td className="first-col">Change</td>
               <td>{this.calcTimeAgo('changes')}</td>
-              <td>{this.calcDailyTotal('changes')}</td>
+              <td>
+                <div>{this.calcDailyTotal('changes')}</div>
+                <div>
+                  <span>({this.calcContentsTotal('poo')} poos / </span>
+                  <span>{this.calcContentsTotal('pee')} pees )</span>
+                </div>
+                
+              </td>
             </tr>
           </tbody>
         </table>

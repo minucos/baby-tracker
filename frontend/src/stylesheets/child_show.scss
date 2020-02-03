@@ -6,8 +6,8 @@
   margin-top: 30px;
 
   .profile-pic {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     font-size: 180px;
     text-align: center;
     border-radius: 20px;
@@ -48,6 +48,10 @@
 
     .first-col {
       text-align: left;
+    }
+
+    span {
+      font-size: 15px;
     }
   }
 
