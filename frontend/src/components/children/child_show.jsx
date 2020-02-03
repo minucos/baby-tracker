@@ -123,7 +123,7 @@ class Child extends React.Component {
               <td></td>
               <td></td>
               <td>
-                ({this.calcContentsTotal('poo')} poos, {this.calcContentsTotal('pee')} pees )
+                ({this.calcContentsTotal('poo')} poos, {this.calcContentsTotal('pee')} pees)
               </td>
             </tr>
           </tbody>
