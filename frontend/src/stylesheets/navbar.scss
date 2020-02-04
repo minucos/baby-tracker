@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 70px;
   font-size: 50px;
   line-height: 50px;
   padding: 0 10px;
@@ -18,14 +18,14 @@
   
   .center {
     color: $white;
-    font-family: 'Butterfly Kids', cursive;
-    font-weight: 400;
+    font-family: 'Patrick Hand', cursive;
+    font-weight: 200;
     font-size: 50px;
   }
 
   .rightbar {
     svg {
-      height: 55px;
+      height: 69px;
     }
 
     ul {

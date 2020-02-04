@@ -28,7 +28,7 @@ const Navbar = (props) => {
         
       </div>
       <div className="center">
-        Baby Tracker
+        Little Mate
       </div>
       <div className="rightbar">
         <FontAwesomeIcon icon={faBars}/>
