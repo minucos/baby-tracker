@@ -7,7 +7,13 @@ import { openModal } from '../../actions/ui_actions';
 import { sortEvents } from '../../reducers/selectors';
 import EventIndexItem from './event_index_item';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMinus, faForward, faBackward, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faMinus, 
+  faForward, 
+  faBackward, 
+  faSpinner,
+  faExclamationTriangle 
+} from '@fortawesome/free-solid-svg-icons';
 
 class EventsIndex extends React.Component {
   constructor(props) {
@@ -15,7 +21,8 @@ class EventsIndex extends React.Component {
     this.state = {
       page: 0,
       limit: 10,
-      filter: ''
+      filter: '',
+      loading: true
     }
   }
 
@@ -24,7 +31,8 @@ class EventsIndex extends React.Component {
     let { page, limit, filter } = this.state;
 
     this.props.fetchChild(userId, childId);
-    this.props.fetchFilteredEvents({userId, childId,page,limit,filter});
+    this.props.fetchFilteredEvents({userId, childId,page,limit,filter})
+      .then(() => this.setState({loading: false}));
   }
 
   componentDidUpdate(prevProps,prevState) {
@@ -65,12 +73,23 @@ class EventsIndex extends React.Component {
 
   render() {
     let { events, child, totalEvents, childId, userId, deleteEvent } = this.props;
-    let { filter, page, limit } = this.state;
+    let { filter, page, limit, loading } = this.state;
     let lastPage = totalEvents === (page+1) * limit || events.length < limit;
-    if (events.length === 0) {
+
+    if (loading) {
       return(
         <div className="loading">
           <FontAwesomeIcon icon={faSpinner} spin />
+        </div>
+      )
+    };
+    if (events.length === 0) {
+      return(
+        <div className="event-index">
+          <div className="no-events">
+            <FontAwesomeIcon icon={faExclamationTriangle} />
+            <div>No Events logged</div>
+          </div>
         </div>
       )
     };

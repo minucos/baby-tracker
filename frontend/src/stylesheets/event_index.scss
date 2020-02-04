@@ -2,6 +2,19 @@
   padding: 0 20px;
   background-color: $white;
 
+  .no-events {
+    font-size: 30px;
+    text-align: center;
+    color: $blue;
+    margin-top: 50px;
+
+    svg {
+      font-size: 100px;
+      color: $orange;
+      padding-bottom: 20px;
+    }
+  }
+
   .event-index-item {
     background-color: $orange;
     margin: 3px 0;
