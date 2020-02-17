@@ -4,11 +4,10 @@ import { fetchChildren } from '../../actions/child_actions';
 import ChildContainer from './child_show';
  
 class ChildIndex extends React.Component {
-
   componentDidMount() {
-    this.props.fetchChildren(this.props.currentUser.id);
+    this.props.fetchChildren(this.props.currentUser.id)
+      .then(() => this.setState({ loading: false }));
   }
-
 
   render() {
     let { children } = this.props;
@@ -23,9 +22,9 @@ class ChildIndex extends React.Component {
     ))
 
     return(
-      <ul>
-        {indexItems}
-      </ul>
+        <ul>
+          {indexItems}
+        </ul>
     )
   }
 }

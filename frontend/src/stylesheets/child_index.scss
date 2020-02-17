@@ -4,3 +4,16 @@
   align-items: center;
   color: $grey;
 }
+
+.icons {
+  height: 55px;
+  width: 55px;
+  background-color: $orange;
+  border-radius: 10px;
+  position: absolute;
+  right: 5px;
+  font-size: 40px;
+  color: $blue;
+  text-align: center;
+  line-height: 55px;
+}

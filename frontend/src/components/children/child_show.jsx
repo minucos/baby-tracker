@@ -5,16 +5,35 @@ import { fetchChild } from '../../actions/child_actions';
 import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBaby } from '@fortawesome/free-solid-svg-icons';
+import { faBaby, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 import { filterEvents, calcTime, applyOffset } from '../../reducers/selectors';
 
 class Child extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: true
+    };
 
+    this.refreshPage = this.refreshPage.bind(this);
+  }
 
   componentDidMount() {
     let { userId,childId } = this.props;
     this.props.fetchChild(userId,childId);
-    this.props.fetchAllEvents({userId,childId});
+    this.props.fetchAllEvents({userId,childId})
+      .then(() => this.setState({ loading: false }));
+  }
+
+  refreshPage() {
+    let { userId, childId } = this.props;
+    this.setState(
+      { loading: true },
+      () => setTimeout(() => {
+        this.props.fetchAllEvents({ userId, childId })
+          .then(() => this.setState({ loading: false }))
+      }, 500)
+    )
   }
 
   componentWillUnmount() {
@@ -86,11 +105,19 @@ class Child extends React.Component {
           childId,
           openModal
         } = this.props;
-
+    let { loading } = this.state;
     if (!child) return null;
 
     return(
       <div className="child-show">
+        <div className="icons">
+          <FontAwesomeIcon
+            className="refresh"
+            icon={faSyncAlt}
+            onClick={this.refreshPage}
+            spin={loading ? true : false}
+          />
+        </div>
         <div className="profile-pic">
           <FontAwesomeIcon icon={faBaby} />
         </div>
