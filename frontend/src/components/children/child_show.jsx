@@ -19,9 +19,9 @@ class Child extends React.Component {
   }
 
   componentDidMount() {
-    let { userId,childId } = this.props;
-    this.props.fetchChild(userId,childId);
-    this.props.fetchAllEvents({userId,childId})
+    let { userId,childId, fetchChild, fetchAllEvents } = this.props;
+    fetchChild(userId,childId);
+    fetchAllEvents({userId,childId})
       .then(() => this.setState({ loading: false }));
   }
 
