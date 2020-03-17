@@ -10,6 +10,7 @@ import LoginFormContainer from './components/signup_login/login_form_container';
 import ChildShowContainer from './components/children/child_show';
 import NewChildContainer from './components/children/new_child_form';
 import EventsIndexContainer from './components/events/events_index';
+import EventsStatsContainer from './components/events/event_stats';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <ProtectedRoute exact path="/child/new" component={NewChildContainer}/>
         <ProtectedRoute exact path="/child/:id" component={ChildShowContainer}/>
         <ProtectedRoute exact path="/child/:id/events" component={EventsIndexContainer}/>
+        <ProtectedRoute exact path="/child/:id/stats" component={EventsStatsContainer}/>
         <ProtectedRoute exact path="/" component={HomePage}/>
         <Redirect to="/"/>
       </Switch>

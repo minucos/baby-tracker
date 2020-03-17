@@ -81,17 +81,22 @@
     }
   }
 
-  a {
-    cursor: pointer;
-    font-size: 30px;
-    font-weight: 400;
-    color: $white;
-    background-color: $orange;
+  .links {
+    display: flex;
+    justify-content: space-between;
     width: 380px;
-    height: 60px;
-    border-radius: 10px;
-    line-height: 60px;
-    text-align: center;
-    margin: 10px 0;
+    a {
+      cursor: pointer;
+      font-size: 30px;
+      font-weight: 400;
+      color: $white;
+      background-color: $orange;
+      width: 185px;
+      height: 60px;
+      border-radius: 10px;
+      line-height: 60px;
+      text-align: center;
+      margin: 10px 0;
+    }
   }
 }

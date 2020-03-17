@@ -61,14 +61,7 @@ class Child extends React.Component {
     let events = this.props[type];
 
     if (events.length === 0) return "";
-    
-    // let eventDate;
-    // if (type === 'changes') {
-    //   eventDate = events[0].eventDetails.startTime;
-    // } else {
-    //   eventDate = events[0].eventDetails.endTime;
-    // }
-
+  
     let eventDate = events[0].eventDetails.startTime;
 
     return(
@@ -161,14 +154,16 @@ class Child extends React.Component {
           <li onClick={() => openModal('change',childId)}>Change</li>
           <li onClick={() => openModal('sleep',childId)}>Sleep</li>
         </ul>
-        <Link to={`/child/${childId}/events`}>See All Events</Link>
+        <div class="links">
+          <Link to={`/child/${childId}/stats`}>Statistics</Link>
+          <Link to={`/child/${childId}/events`}>All Events</Link>
+        </div>
       </div>
     )
   }
 }
 
 const MSP = (state, ownProps) => {
-  // let childId = ownProps.match.params.id;
 
   return({
     child: ownProps.child,
