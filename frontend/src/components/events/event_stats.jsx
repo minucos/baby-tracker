@@ -16,6 +16,7 @@ const RANGES = {
   'month': 30,
   'year': 365
 }
+
 class EventStats extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +24,9 @@ class EventStats extends React.Component {
     this.state = {
       range: 'week',
       date: new Date(),
-      loading: true
+      loading: true,
+      chartHeight: window.innerHeight - 150,
+      currHeight: window.innerHeight
     }
   }
 
@@ -56,7 +59,7 @@ class EventStats extends React.Component {
     switch (this.state.range) {
       case 'year':
         return(
-          <Brush dataKey='date' height={30} stroke="#8884d8" endIndex={30} />
+          <Brush dataKey='date' height={30} stroke="#002f44" endIndex={30} />
         );
       default:
         return null;
@@ -64,7 +67,7 @@ class EventStats extends React.Component {
   }
 
   render() {
-    let { loading, range } = this.state;
+    let { loading, range, chartHeight } = this.state;
     if (loading) {
       return (
         <div className="loading">
@@ -75,7 +78,7 @@ class EventStats extends React.Component {
 
     return(
       <div className="event-stats">
-        <ResponsiveContainer width="95%" height={500}>
+        <ResponsiveContainer width="95%" height={chartHeight} >
           <BarChart 
             data={this.eventData()}
             margin={{ top: 25, right: 0, left: -25, bottom: 0 }}
