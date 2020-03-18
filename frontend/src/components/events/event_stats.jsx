@@ -25,7 +25,7 @@ class EventStats extends React.Component {
       range: 'week',
       date: new Date(),
       loading: true,
-      chartHeight: window.innerHeight - 150,
+      chartHeight: window.innerHeight - 170,
       currHeight: window.innerHeight
     }
   }
