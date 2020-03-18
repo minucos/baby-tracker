@@ -18,7 +18,23 @@ router.get(
       .populate('eventDetails')
       .populate('recorder', ['fName', 'lName', '_id', 'email'])
       .sort({ startTime: -1 })
-      .limit(30)
+      .then(events => {
+        if (events) {
+          return res.json(events);
+        }
+      })
+      .catch(err => res.status(400).json(err));
+  }
+)
+
+router.get(
+  '/all',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    Event.find({ child: req.params.childId })
+      .populate('eventDetails')
+      .populate('recorder', ['fName', 'lName', '_id', 'email'])
+      .sort({ startTime: -1 })
       .then(events => {
         if (events) {
           return res.json(events);
