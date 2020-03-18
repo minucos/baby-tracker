@@ -58,20 +58,16 @@ export const countEvents = (events) => {
   });
 };
 
-export const eventsByWeek = (events,date) => {
+export const eventsByRange = (events,range,currDate) => {
+  let date = new Date(currDate);
   let dates = {};
 
-  for (let i = 0; i < 7; i++) {
-    
-  }
-};
+  for (let i = 0; i < range; i++) {
+    dates[date.toLocaleDateString()] = true;
+    date.setDate(date.getDate() - 1);
+  };
 
-export const eventsByYear = (events,date) => {
-
-};
-
-export const eventsByMonth = (events,date) => {
-
+  return events.filter(event => dates[event.date] );
 };
 
 export const calcTime = date => {
