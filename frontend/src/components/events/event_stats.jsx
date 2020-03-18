@@ -5,7 +5,7 @@ import { openModal } from '../../actions/ui_actions';
 import {
   ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Legend, Brush, ReferenceLine, Label
 } from 'recharts';
-import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
+import { fetchCompleteEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBaby, faUtensils, faBed, faSpinner 
 } from '@fortawesome/free-solid-svg-icons';
@@ -31,9 +31,9 @@ class EventStats extends React.Component {
   }
 
   componentDidMount() {
-    let { userId, childId, fetchChild, fetchAllEvents } = this.props;
+    let { userId, childId, fetchChild, fetchCompleteEvents } = this.props;
     fetchChild(userId, childId);
-    fetchAllEvents({ userId, childId })
+    fetchCompleteEvents({ userId, childId })
       .then(() => this.setState({ loading: false }));
   }
 
@@ -140,7 +140,7 @@ const MSP = (state, ownProps) => {
 
 const MDP = dispatch => ({
   fetchChild: (userId, childId) => dispatch(fetchChild(userId, childId)),
-  fetchAllEvents: (payload) => dispatch(fetchAllEvents(payload)),
+  fetchCompleteEvents: (payload) => dispatch(fetchCompleteEvents(payload)),
   openModal: (modal, childId) => dispatch(openModal(modal, childId)),
   clearEvents: () => dispatch(clearEvents())
 })

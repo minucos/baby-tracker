@@ -48,6 +48,14 @@ export const fetchAllEvents = (payload) => dispatch => {
     )
 };
 
+export const fetchCompleteEvents = (payload) => dispatch => {
+  return EventAPIUtil.fetchCompleteEvents(payload)
+    .then(
+      events => dispatch(receiveAllEvents(events.data)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};
+
 export const fetchFilteredEvents = (payload) => dispatch => {
   return EventAPIUtil.fetchFilteredEvents(payload)
     .then(

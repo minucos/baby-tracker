@@ -6,6 +6,12 @@ export const fetchAllEvents = ({userId, childId}) => {
   );
 };
 
+export const fetchCompleteEvents = ({userId, childId}) => {
+  return axios.get(
+    `/api/users/${userId}/children/${childId}/events/all`
+  );
+};
+
 export const fetchFilteredEvents = ({userId, childId, page, limit, filter}) => {
   return axios.get(
     `/api/users/${userId}/children/${childId}/events/filtered?page=${page}&limit=${limit}&filter=${filter}`
