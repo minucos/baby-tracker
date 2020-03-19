@@ -15,7 +15,7 @@ const RANGES = {
   'week': 7,
   'month': 30,
   'year': 365
-}
+};
 
 class EventStats extends React.Component {
   constructor(props) {
@@ -82,23 +82,33 @@ class EventStats extends React.Component {
           <BarChart 
             data={this.eventData()}
             margin={{ top: 25, right: 0, left: -25, bottom: 0 }}
+            barGap={0}
+            barCategoryGap="5%"
+
           >
             <Bar dataKey="feed" fill="#006d9c"/>
             <Bar dataKey="change" fill="#fea02f"/>
-            <XAxis dataKey="date" stroke="#728088"/>
-            <YAxis allowDecimals={false} stroke="#728088"/>
+            <XAxis 
+              dataKey="date" 
+              stroke="#728088" 
+              // interval={0}
+              // tick={{ value: '' }}
+            />
+            <YAxis allowDecimals={false} stroke="#728088" interval={0} />
             {this.brush()}
             <Legend stroke="#728088" formatter={(value) => {
               return <span style={{ color: '#728088' }}>{value}</span>
             }}/>
             <ReferenceLine 
               y={this.avgEvent('feed')} 
-              stroke="#006d9c"
+              stroke="#024564"
+              strokeWidth={3}
               strokeDasharray="5"
             />
             <ReferenceLine 
               y={this.avgEvent('change')} 
-              stroke="#fea02f"
+              stroke="#ad6b1b"
+              strokeWidth={3}
               strokeDasharray="5"
             />
           </BarChart>
