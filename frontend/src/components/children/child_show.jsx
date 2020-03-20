@@ -100,7 +100,7 @@ class Child extends React.Component {
     return(
       <div onClick={(e) => {
         e.stopPropagation();
-        openModal(childId);
+        openModal('deleteChild', childId);
       }}
       >
         <FontAwesomeIcon className='refresh' icon={faTrashAlt} />
@@ -195,7 +195,7 @@ const MDP = dispatch => ({
   fetchChild: (userId,childId) => dispatch(fetchChild(userId,childId)),
   deleteChild: (userId,childId) => dispatch(deleteChild(userId,childId)),
   fetchAllEvents: (payload) => dispatch(fetchAllEvents(payload)),
-  openModal: (childId) => dispatch(openModal('deleteChild',childId)),
+  openModal: (modal,childId) => dispatch(openModal(modal,childId)),
   clearEvents: () => dispatch(clearEvents())
 })
 

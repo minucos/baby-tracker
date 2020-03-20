@@ -6,7 +6,7 @@ import { deleteChild } from '../../actions/child_actions';
 import { closeModal } from '../../actions/ui_actions';
 
 
-class DeleteConfirmation extends React.Component {
+class DeleteChildConfirmation extends React.Component {
   constructor(props) {
     super(props);
 
@@ -74,4 +74,4 @@ const MDP = dispatch => ({
   closeModal: () => dispatch(closeModal())
 });
 
-export default connect(MSP, MDP)(DeleteConfirmation);
+export default connect(MSP, MDP)(DeleteChildConfirmation);
