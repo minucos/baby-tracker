@@ -77,6 +77,23 @@ router.post(
   }
 );
 
+router.delete(
+  '/:id/delete',
+  passport.authenticate('jwt', { session: false }),
+  (req,res) => {
+    const carerId = req.params.userId;
+    Child.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $pull: { carers: carerId }
+      },
+      { new: true }
+    )
+    .then(child => res.json(child))
+    .catch(err => res.status(400).json(err))
+  }
+);
+
 router.use('/:childId/events', events);
 
 module.exports = router;
