@@ -2,6 +2,7 @@ import * as ChildAPIUtil from '../util/child_api_util';
 
 export const RECEIVE_CHILDREN = 'RECEIVE_CHILDREN';
 export const RECEIVE_CHILD = 'RECEIVE_CHILD';
+export const REMOVE_CHILD = 'REMOVE_CHILD';
 export const RECEIVE_CHILD_ERRORS = 'RECEIVE_CHILD_ERRORS';
 
 const receiveChildren = children => ({
@@ -13,6 +14,11 @@ const receiveChild = child => ({
   type: RECEIVE_CHILD,
   child
 });
+
+const removeChild = child => ({
+  type: REMOVE_CHILD,
+  child
+})
 
 const receiveErrors = errors => ({
   type: RECEIVE_CHILD_ERRORS,
@@ -39,6 +45,14 @@ export const createChild = (userId, child) => dispatch => {
   return ChildAPIUtil.createChild(userId,child)
     .then(
       child => dispatch(receiveChild(child.data)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};
+
+export const deleteChild = (userId, childId) => dispatch => {
+  return ChildAPIUtil.deleteChild(userId,childId)
+    .then(
+      child => dispatch(removeChild(child.data)),
       errors => dispatch(receiveErrors(errors))
     )
 };

@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchChild } from '../../actions/child_actions';
+import { fetchChild, deleteChild } from '../../actions/child_actions';
 import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBaby, faSyncAlt } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faBaby, faSyncAlt, faTrashAlt 
+} from '@fortawesome/free-solid-svg-icons';
 import { filterEvents, calcTime, applyOffset } from '../../reducers/selectors';
 
 class Child extends React.Component {
@@ -93,6 +95,19 @@ class Child extends React.Component {
     }).length;
   }
 
+  deleteButton() {
+    const { childId, openModal } = this.props;
+    return(
+      <div onClick={(e) => {
+        e.stopPropagation();
+        openModal(childId);
+      }}
+      >
+        <FontAwesomeIcon className='refresh' icon={faTrashAlt} />
+      </div>
+    )
+  }
+
   render() {
     let { child,
           childId,
@@ -110,6 +125,7 @@ class Child extends React.Component {
             onClick={this.refreshPage}
             spin={loading ? true : false}
           />
+          {this.deleteButton()}
         </div>
         <div className="profile-pic">
           <FontAwesomeIcon icon={faBaby} />
@@ -154,7 +170,7 @@ class Child extends React.Component {
           <li onClick={() => openModal('change',childId)}>Change</li>
           <li onClick={() => openModal('sleep',childId)}>Sleep</li>
         </ul>
-        <div class="links">
+        <div className="links">
           <Link to={`/child/${childId}/stats`}>Statistics</Link>
           <Link to={`/child/${childId}/events`}>All Events</Link>
         </div>
@@ -177,8 +193,9 @@ const MSP = (state, ownProps) => {
 
 const MDP = dispatch => ({
   fetchChild: (userId,childId) => dispatch(fetchChild(userId,childId)),
+  deleteChild: (userId,childId) => dispatch(deleteChild(userId,childId)),
   fetchAllEvents: (payload) => dispatch(fetchAllEvents(payload)),
-  openModal: (modal,childId) => dispatch(openModal(modal,childId)),
+  openModal: (childId) => dispatch(openModal('deleteChild',childId)),
   clearEvents: () => dispatch(clearEvents())
 })
 

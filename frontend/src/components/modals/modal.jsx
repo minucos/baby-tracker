@@ -4,6 +4,7 @@ import FeedFormContainer from './feed_form';
 import ChangeFormContainer from './change_form';
 import SleepFormContainer from './sleep_form';
 import DeleteConfirmationContainer from './delete_confirmation';
+import DeleteChildConfirmationContainer from './delete_child_confirmation';
 
 const Modal = (props) => {
   switch (props.modal) {
@@ -22,6 +23,10 @@ const Modal = (props) => {
     case 'delete':
         return(
           <DeleteConfirmationContainer />
+        )
+    case 'deleteChild':
+        return(
+          <DeleteChildConfirmationContainer />
         )
     default:
       return null;

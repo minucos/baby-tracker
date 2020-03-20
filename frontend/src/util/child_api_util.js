@@ -11,3 +11,7 @@ export const fetchChild = (userId, childId) => {
 export const createChild = (userId, child) => {
   return axios.post(`/api/users/${userId}/children`, child)
 };
+
+export const deleteChild = (userId, childId) => {
+  return axios.delete(`api/users/${userId}/children/${childId}/delete`)
+};
