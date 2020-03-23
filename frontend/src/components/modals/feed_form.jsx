@@ -147,6 +147,8 @@ class FeedForm extends React.Component {
   }
 
   hideList(e) {
+    e.stopPropagation();
+    debugger
     e.currentTarget.classList.remove('displayed');
   }
 
@@ -240,12 +242,12 @@ class FeedForm extends React.Component {
 
 const MSP = state => {
   let childId = state.ui.selectedChild;
-
+  let child = state.entities.children[childId];
   return ({
     userId: state.session.user.id,
-    child: state.entities.children[childId],
     user: state.session.user,
     carers: selectCarers(state),
+    child,
     childId
   })
 }
