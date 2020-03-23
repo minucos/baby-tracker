@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { deleteChild } from '../../actions/child_actions';
 import { closeModal } from '../../actions/ui_actions';
 

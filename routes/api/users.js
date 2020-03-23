@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const passport = require('passport');
 const User = require('../../models/User');
 const children = require('./children');
 const BCrypt = require("bcryptjs");
@@ -104,6 +105,20 @@ router.post("/login", (req, res) => {
         })
     })
 });
+
+router.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const regex = new RegExp(req.query.searchTerm, 'i')
+
+    User.find({ $or: [{ fName: regex }, { lName: regex }, { email: regex }] })
+      .then(users => {
+        res.json(users)
+      })
+      .catch(err => res.status(400).json(err))
+  }  
+)
 
 router.use('/:userId/children', children);
 

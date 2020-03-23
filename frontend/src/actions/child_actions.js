@@ -56,3 +56,11 @@ export const deleteChild = (userId, childId) => dispatch => {
       errors => dispatch(receiveErrors(errors))
     )
 };
+
+export const addCarer = (userId, childId, carerId) => dispatch => {
+  return ChildAPIUtil.addCarer(userId,childId, carerId)
+    .then(
+      child => dispatch(receiveChild(child.data)),
+      errors => dispatch(receiveErrors(errors))
+    )
+};

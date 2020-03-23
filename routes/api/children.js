@@ -94,6 +94,25 @@ router.delete(
   }
 );
 
+router.put(
+  '/:id/addCarer',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const carerId = req.body.carerId;
+    Child.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $push: { carers: carerId }
+      },
+      { new: true }
+    )
+      .then(child => res.json(child))
+      .catch(err => res.status(400).json(err))
+  }
+);
+
+
+
 router.use('/:childId/events', events);
 
 module.exports = router;

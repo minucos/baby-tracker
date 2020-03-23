@@ -15,3 +15,7 @@ export const createChild = (userId, child) => {
 export const deleteChild = (userId, childId) => {
   return axios.delete(`api/users/${userId}/children/${childId}/delete`)
 };
+
+export const addCarer = (userId, childId, carerId) => {
+  return axios.put(`api/users/${userId}/children/${childId}/addCarer`, carerId)
+};
