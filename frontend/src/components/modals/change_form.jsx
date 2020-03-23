@@ -15,7 +15,7 @@ class ChangeForm extends React.Component {
       contents: [],
       options: [],
       notes: '',
-      changedBy: this.props.user,
+      changedBy: this.props.user.id,
       startTime: this.formatDate(new Date(changeDate)),
     };
     this.contents = ['pee','poo'];
@@ -28,8 +28,10 @@ class ChangeForm extends React.Component {
     return (e) => {
       e.preventDefault();
 
+      let value = field === 'fedBy' ? e.target.dataset["value"] : e.target.value;
+
       this.setState({
-        [field]: e.target.value
+        [field]: value
       })
     }
   };
@@ -75,7 +77,6 @@ class ChangeForm extends React.Component {
     e.preventDefault();
     let { userId, childId } = this.props;
     let change = this.state;
-    change.changedBy = change.changedBy.id
 
     change.startDate = this.formatUTCDate(new Date(change.startDate));
 
@@ -170,12 +171,13 @@ class ChangeForm extends React.Component {
   }
 
   hideList(e) {
+    e.stopPropagation();
     e.currentTarget.classList.remove('displayed');
   }
 
   carers() {
-    return this.props.carers.map((carer, idx) => (
-      <li key={idx} value={carer._id}>
+    return Object.values(this.props.carers).map((carer, idx) => (
+      <li key={idx} value={carer._id} onClick={this.updateField('fedBy')}>
         {carer.fName} {carer.lName}
       </li>
     ))
@@ -188,7 +190,8 @@ class ChangeForm extends React.Component {
       changedBy,
       startTime,
     } = this.state;
-    let { child, closeModal } = this.props;
+    let { child, closeModal, carers } = this.props;
+    let carer = carers[changedBy];
 
     if (!child) return null;
 
@@ -210,7 +213,7 @@ class ChangeForm extends React.Component {
             onChange={this.updateField('changedBy')}
             onClick={this.showList}
           >
-            {changedBy.fName} {changedBy.lName}
+            {carer.fName} {carer.lName}
             <ul
               onClick={this.hideList}
             >
@@ -248,12 +251,14 @@ class ChangeForm extends React.Component {
 
 const MSP = state => {
   let childId = state.ui.selectedChild;
+  let child = state.entities.children[childId];
 
   return ({
     userId: state.session.user.id,
     child: state.entities.children[childId],
     user: state.session.user,
-    carers: selectCarers(state),
+    carers: selectCarers(child.carers),
+    child,
     childId
   })
 }

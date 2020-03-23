@@ -145,12 +145,12 @@ class FeedForm extends React.Component {
   }
 
   showList(e) {
-    e.currentTarget.firstElementChild.classList.toggle('displayed');
+    e.currentTarget.firstElementChild.classList.add('displayed');
   }
 
   hideList(e) {
     e.stopPropagation();
-    e.currentTarget.classList.toggle('displayed');
+    e.currentTarget.classList.remove('displayed');
   }
 
   carers() {
