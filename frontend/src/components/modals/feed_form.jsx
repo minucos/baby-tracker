@@ -16,7 +16,7 @@ class FeedForm extends React.Component {
       foodType: '',
       startingSide: 'n/a',
       notes: '',
-      fedBy: this.props.user,
+      fedBy: this.props.user.id,
       startTime: this.formatLocalDate(new Date(startDate)),
       endTime: this.formatLocalDate(new Date(endDate)),
     };
@@ -28,14 +28,17 @@ class FeedForm extends React.Component {
 
   updateField(field) {
     return (e) => {
-      e.preventDefault();
-      let value = e.target.value;
 
+      let value = e.target.value;
       if (field === 'foodFrom' && value !== this.state.foodFrom) {
         this.setState({
           [field]: value,
           startingSide: 'n/a',
           foodType: ''
+        })
+      } else if (field === 'fedBy') {
+        this.setState({
+          [field]: e.target.dataset["value"]
         })
       } else {
         this.setState({
@@ -49,7 +52,6 @@ class FeedForm extends React.Component {
     e.preventDefault();
     let { userId, childId } = this.props;
     let feed = this.state;
-    feed.fedBy = feed.fedBy.id;
 
     feed.startDate = this.formatUTCDate(new Date(feed.startDate));
     feed.endDate = this.formatUTCDate(new Date(feed.endDate));
@@ -143,18 +145,17 @@ class FeedForm extends React.Component {
   }
 
   showList(e) {
-    e.currentTarget.firstElementChild.classList.add('displayed');
+    e.currentTarget.firstElementChild.classList.toggle('displayed');
   }
 
   hideList(e) {
     e.stopPropagation();
-    debugger
-    e.currentTarget.classList.remove('displayed');
+    e.currentTarget.classList.toggle('displayed');
   }
 
   carers() {
-    return this.props.carers.map((carer,idx) =>(
-      <li key={idx} value={carer._id}>
+    return Object.values(this.props.carers).map((carer,idx) =>(
+      <li key={idx} data-value={carer._id} onClick={this.updateField('fedBy')}>
         {carer.fName} {carer.lName}
       </li>
     ))
@@ -167,8 +168,9 @@ class FeedForm extends React.Component {
       startTime,
       endTime
     } = this.state;
-    let { child, closeModal } = this.props;
+    let { child, closeModal, carers } = this.props;
 
+    let carer = carers[fedBy];
     if (!child) return null;
 
     return(
@@ -192,10 +194,9 @@ class FeedForm extends React.Component {
           </div>
           <div 
             className='dropdown' 
-            onChange={this.updateField('fedBy')}
             onClick={this.showList}
           >
-            {fedBy.fName} {fedBy.lName}
+            {carer.fName} {carer.lName}
             <ul  
               onClick={this.hideList}
             >
@@ -246,7 +247,7 @@ const MSP = state => {
   return ({
     userId: state.session.user.id,
     user: state.session.user,
-    carers: selectCarers(state),
+    carers: selectCarers(child.carers),
     child,
     childId
   })

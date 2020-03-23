@@ -1,7 +1,9 @@
-export const selectCarers = (state) => {
-  let others = Object.values(state.entities.users);
-  let currentUser = [state.session.user];
-  return currentUser.concat(others);
+export const selectCarers = (carersArr) => {
+  let carersObj = {};
+
+  carersArr.forEach(carer => carersObj[carer._id] = carer)
+
+  return carersObj;
 }
 
 export const filterEvents = (state, type, childId) => {
