@@ -6,7 +6,7 @@ import { openModal } from '../../actions/ui_actions';
 import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faBaby, faSyncAlt, faTrashAlt 
+  faBaby, faSyncAlt, faTrashAlt, faUsers 
 } from '@fortawesome/free-solid-svg-icons';
 import { filterEvents, calcTime, applyOffset } from '../../reducers/selectors';
 
@@ -108,6 +108,19 @@ class Child extends React.Component {
     )
   }
 
+  inviteButton() {
+    const { childId, openModal } = this.props;
+    return(
+      <div onClick={(e) => {
+        e.stopPropagation();
+        openModal('inviteCarer', childId);
+      }}
+      >
+        <FontAwesomeIcon className='refresh' icon={faUsers} />
+      </div>
+    )
+  }
+
   render() {
     let { child,
           childId,
@@ -126,6 +139,7 @@ class Child extends React.Component {
             spin={loading ? true : false}
           />
           {this.deleteButton()}
+          {this.inviteButton()}
         </div>
         <div className="profile-pic">
           <FontAwesomeIcon icon={faBaby} />

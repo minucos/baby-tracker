@@ -5,5 +5,5 @@ export const fetchParents = (id) => {
 }
 
 export const searchUsers = (searchTerm) => {
-  return axios.get(`/api/users?query=${searchTerm}`)
+  return axios.get(`/api/users?searchTerm=${searchTerm}`)
 }
