@@ -113,6 +113,7 @@ router.get(
     const regex = new RegExp(req.query.searchTerm, 'i')
 
     User.find({ $or: [{ fName: regex }, { lName: regex }, { email: regex }] })
+      .limit(10)
       .then(users => {
         res.json(users)
       })

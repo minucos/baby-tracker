@@ -72,6 +72,10 @@ class InviteCarer extends React.Component {
       .then(() => closeModal());
   }
 
+  componentWillUnmount() {
+    this.props.clearUsers();
+  }
+
   render() {
     let { closeModal, carers, users } = this.props;
     let { carerId, searchTerm, carerName } = this.state;
