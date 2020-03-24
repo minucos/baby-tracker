@@ -82,6 +82,7 @@ router.delete(
   passport.authenticate('jwt', { session: false }),
   (req,res) => {
     const carerId = req.params.userId;
+    
     Child.findOneAndUpdate(
       { _id: req.params.id },
       {
@@ -99,10 +100,11 @@ router.put(
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
     const carerId = req.body.carerId;
+
     Child.findOneAndUpdate(
       { _id: req.params.id },
       {
-        $push: { carers: carerId }
+        $addToSet: { carers: carerId }
       },
       { new: true }
     )

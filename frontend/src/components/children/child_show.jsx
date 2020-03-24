@@ -31,10 +31,10 @@ class Child extends React.Component {
     let { userId, childId } = this.props;
     this.setState(
       { loading: true },
-      () => setTimeout(() => {
+      () => {
         this.props.fetchAllEvents({ userId, childId })
           .then(() => this.setState({ loading: false }))
-      }, 500)
+      }
     )
   }
 
@@ -116,7 +116,7 @@ class Child extends React.Component {
         openModal('inviteCarer', childId);
       }}
       >
-        <FontAwesomeIcon className='refresh' icon={faUsers} />
+        <FontAwesomeIcon icon={faUsers} />
       </div>
     )
   }
@@ -133,13 +133,12 @@ class Child extends React.Component {
       <div className="child-show">
         <div className="icons">
           <FontAwesomeIcon
-            className="refresh"
             icon={faSyncAlt}
             onClick={this.refreshPage}
             spin={loading ? true : false}
           />
-          {this.deleteButton()}
           {this.inviteButton()}
+          {this.deleteButton()}
         </div>
         <div className="profile-pic">
           <FontAwesomeIcon icon={faBaby} />

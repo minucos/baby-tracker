@@ -37,7 +37,7 @@ class DeleteChildConfirmation extends React.Component {
     return (
       <div className="modal-container" onClick={closeModal}>
         <form className="form" onClick={(e) => e.stopPropagation()} onSubmit={this.submit}>
-          <h1 className="delete-h1">Warning: This action cannot be ondone!</h1>
+          <h1 className="modal-h1">Warning: This action cannot be ondone!</h1>
           <h3>Enter child's name below to confirm</h3>
             <input 
               type="text" 

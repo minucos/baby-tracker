@@ -12,7 +12,7 @@ const DeleteConfirmation = (props) => {
   return(
     <div className="modal-container" onClick={closeModal}>
       <div className="form" onClick={(e) => e.stopPropagation()}>
-        <h1 className="delete-h1">Are you sure?</h1>
+        <h1 className="modal-h1">Are you sure?</h1>
         <button 
           className="delete-button"
           onClick={() => {
