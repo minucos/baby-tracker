@@ -143,6 +143,12 @@
         padding-left: 10px;
       }
     }
+
+    .delete-button:disabled {
+      background-color: $lightgrey;
+      color: $grey;
+      border-color: $grey;
+    }
   }
 
   .hidden {

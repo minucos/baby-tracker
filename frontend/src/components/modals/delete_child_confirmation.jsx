@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteChild } from '../../actions/child_actions';
+import { deleteChild, fetchChildren } from '../../actions/child_actions';
 import { closeModal } from '../../actions/ui_actions';
 
 
@@ -24,7 +24,7 @@ class DeleteChildConfirmation extends React.Component {
   }
   submit(e) {
     e.preventDefault();
-    let { deleteChild, userId, childId, closeModal } = this.props;
+    let { deleteChild, userId, childId, closeModal, fetchChildren } = this.props;
 
     deleteChild(userId, childId)
     closeModal();

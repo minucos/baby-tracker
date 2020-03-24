@@ -1,7 +1,8 @@
 import { 
   RECEIVE_ALL_EVENTS, 
   RECEIVE_EVENT, 
-  CLEAR_EVENTS, 
+  CLEAR_EVENTS,
+  CLEAR_USER_EVENTS,
   RECEIVE_FILTERED_EVENTS,
   REMOVE_EVENT
 } from "../actions/event_actions";
@@ -30,6 +31,16 @@ const EventReducer = (oldState = {}, action) => {
     case REMOVE_EVENT:
       newState = Object.assign({},oldState);
       delete newState[action.event._id];
+      return newState;
+
+    case CLEAR_USER_EVENTS:
+      newState = Object.assign({},oldState);
+      Object.values(newState).forEach(event => {
+        if (event.child === action.id) {
+          delete newState[event._id];
+        }
+      })
+
       return newState;
 
     case CLEAR_EVENTS:

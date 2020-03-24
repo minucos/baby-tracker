@@ -6,6 +6,7 @@ export const RECEIVE_EVENT = 'RECEIVE_EVENT';
 export const REMOVE_EVENT = 'REMOVE_EVENT';
 export const RECEIVE_EVENT_ERRORS = 'RECEIVE_EVENT_ERRORS';
 export const CLEAR_EVENTS = 'CLEAR_EVENTS';
+export const CLEAR_USER_EVENTS = 'CLEAR_USER_EVENTS';
 
 const receiveAllEvents = events => {
   return({
@@ -33,6 +34,11 @@ const removeEvent = event => ({
 
 export const clearEvents = () => ({
   type: CLEAR_EVENTS
+})
+
+export const clearUserEvents = id => ({
+  type: CLEAR_USER_EVENTS,
+  id
 })
 
 const receiveErrors = errors => ({

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchChild, deleteChild } from '../../actions/child_actions';
 import { openModal } from '../../actions/ui_actions';
-import { fetchAllEvents, clearEvents } from '../../actions/event_actions';
+import { fetchAllEvents, clearUserEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faBaby, faSyncAlt, faTrashAlt, faUsers 
@@ -39,7 +39,7 @@ class Child extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.clearEvents();
+    this.props.clearUserEvents(this.props.userId);
   }
 
   calcAge() {
@@ -209,7 +209,7 @@ const MDP = dispatch => ({
   deleteChild: (userId,childId) => dispatch(deleteChild(userId,childId)),
   fetchAllEvents: (payload) => dispatch(fetchAllEvents(payload)),
   openModal: (modal,childId) => dispatch(openModal(modal,childId)),
-  clearEvents: () => dispatch(clearEvents())
+  clearUserEvents: (id) => dispatch(clearUserEvents(id))
 })
 
 export default connect(MSP,MDP)(Child);
