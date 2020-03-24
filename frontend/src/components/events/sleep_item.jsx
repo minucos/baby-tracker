@@ -8,9 +8,8 @@ import { openModal } from '../../actions/ui_actions';
 const SleepItem = (props) => {
   let {
     eventDetails,
-    carer,
+    showDelete,
     toggleDetails,
-    userId,
     childId,
     eventId,
     openModal } = props;
@@ -40,7 +39,7 @@ const SleepItem = (props) => {
         <li>Woke Up: {applyOffset(endTime).toLocaleTimeString()}</li>
         <li>Time Slept: {calcDuration(startTime,endTime).toFixed(1)} hours</li>
         <li>Notes: {notes}</li>
-        {userId === carer._id ? deleteButton : null}
+        { showDelete ? deleteButton : null}
       </ul>
     </div>
   )

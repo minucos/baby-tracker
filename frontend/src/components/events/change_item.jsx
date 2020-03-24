@@ -9,8 +9,8 @@ const ChangeItem = (props) => {
   let {
     eventDetails,
     carer,
+    showDelete,
     toggleDetails,
-    userId,
     childId,
     eventId,
     openModal } = props;
@@ -41,7 +41,7 @@ const ChangeItem = (props) => {
         <li>Details: {options.join(', ')}</li>
         <li>Changed by: {carer.fName}</li>
         <li>Notes: {notes}</li>
-        {userId === carer._id ? deleteButton : null}
+        { showDelete ? deleteButton : null}
       </ul>
     </div>
   )

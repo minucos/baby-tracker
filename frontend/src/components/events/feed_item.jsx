@@ -10,8 +10,8 @@ const FeedItem = (props) => {
   let { 
     eventDetails, 
     carer, 
+    showDelete,
     toggleDetails, 
-    userId, 
     childId, 
     eventId, 
     openModal } = props;
@@ -43,7 +43,7 @@ const FeedItem = (props) => {
         {eventDetails.startingSide === 'n/a' ? null : <li>Starting Side: {eventDetails.startingSide}</li> }
         <li>Fed by: {carer.fName}</li>
         <li>Notes: {eventDetails.notes}</li>
-        {userId === carer._id ? deleteButton : null}
+        { showDelete ? deleteButton : null }
       </ul>
     </div>
   )

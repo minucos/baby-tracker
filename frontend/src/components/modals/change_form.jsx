@@ -28,7 +28,7 @@ class ChangeForm extends React.Component {
     return (e) => {
       e.preventDefault();
 
-      let value = field === 'fedBy' ? e.target.dataset["value"] : e.target.value;
+      let value = field === 'changedBy' ? e.target.dataset["value"] : e.target.value;
 
       this.setState({
         [field]: value
@@ -177,7 +177,7 @@ class ChangeForm extends React.Component {
 
   carers() {
     return Object.values(this.props.carers).map((carer, idx) => (
-      <li key={idx} value={carer._id} onClick={this.updateField('fedBy')}>
+      <li key={idx} data-value={carer._id} onClick={this.updateField('changedBy')}>
         {carer.fName} {carer.lName}
       </li>
     ))
@@ -210,7 +210,6 @@ class ChangeForm extends React.Component {
           </div>
           <div
             className='dropdown'
-            onChange={this.updateField('changedBy')}
             onClick={this.showList}
           >
             {carer.fName} {carer.lName}
