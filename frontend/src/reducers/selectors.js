@@ -42,6 +42,7 @@ export const countEvents = (events) => {
       
       if (count[date]) {
         count[date][type] ? count[date][type]++ : count[date][type] = 1;
+
       } else {
         count[date] = {};
         count[date][type] = 1;
@@ -52,10 +53,40 @@ export const countEvents = (events) => {
     let obj = {};
     obj['date'] = date;
 
+
     Object.keys(count[date]).forEach(type => {
       obj[type] = count[date][type];
     })
     
+    return obj;
+  });
+};
+
+export const countByUser = (events, users) => {
+  let count = {};
+
+  Object.values(events).forEach(event => {
+    let type = event.eventType;
+    let userId = event.recorder._id;
+
+    if (count[userId]) {
+      count[userId][type] ? count[userId][type]++ : count[userId][type] = 1;
+
+    } else {
+      count[userId] = {};
+      count[userId][type] = 1;
+    }
+  });
+
+  return Object.keys(count).map(userId => {
+    let obj = {};
+    obj['user'] = users[userId];
+
+
+    Object.keys(count[userId]).forEach(type => {
+      obj[type] = count[userId][type];
+    })
+
     return obj;
   });
 };
@@ -70,6 +101,21 @@ export const eventsByRange = (events,range,currDate) => {
   };
 
   return events.filter(event => dates[event.date] );
+};
+
+export const eventsByRange2 = (events,range,currDate) => {
+  let date = new Date(currDate);
+  let dates = {};
+
+  for (let i = 0; i < range; i++) {
+    dates[date.toLocaleDateString()] = true;
+    date.setDate(date.getDate() - 1);
+  };
+
+  return events.filter(event => {
+    let eventDate = new Date(event.createDate).toLocaleDateString();
+    return dates[eventDate];
+  });
 };
 
 export const calcTime = date => {

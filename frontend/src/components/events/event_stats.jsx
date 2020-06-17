@@ -7,9 +7,9 @@ import {
 } from 'recharts';
 import { fetchCompleteEvents, clearEvents } from '../../actions/event_actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBaby, faUtensils, faBed, faSpinner 
+import { faBaby, faUtensils, faSpinner
 } from '@fortawesome/free-solid-svg-icons';
-import { countEvents, eventsByRange } from '../../reducers/selectors';
+import { countEvents, eventsByRange, eventsByRange2, countByUser } from '../../reducers/selectors';
 
 const RANGES = {
   'week': 7,
@@ -39,9 +39,16 @@ class EventStats extends React.Component {
 
   eventData() {
     let { range, date } = this.state;
+    let { eventCount } = this.props
+
+    return eventsByRange(eventCount,RANGES[range],date)
+  }
+
+  carerData() {
+    let { range, date } = this.state;
     let { events } = this.props
 
-    return eventsByRange(events,RANGES[range],date)
+    return eventsByRange2(events, RANGES[range], date);
   }
 
   avgEvent(type) {
@@ -64,6 +71,22 @@ class EventStats extends React.Component {
       default:
         return null;
     }
+  }
+
+  carerStats() {
+    let events = this.carerData();
+
+    return countByUser(events, this.props.users).map(carer => {
+      let { user } = carer;
+
+      return(
+        <tr>
+            <td>{user.fName}</td>
+            <td>{carer.feed}</td>
+            <td>{carer.change}</td>
+        </tr>
+      )
+    });
   }
 
   render() {
@@ -91,8 +114,6 @@ class EventStats extends React.Component {
             <XAxis 
               dataKey="date" 
               stroke="#728088" 
-              // interval={0}
-              // tick={{ value: '' }}
             />
             <YAxis allowDecimals={false} stroke="#728088" interval={0} />
             {this.brush()}
@@ -132,6 +153,15 @@ class EventStats extends React.Component {
             Year
           </li>
         </ul>
+          <h3>Carer Stats</h3>  
+          <table>
+            <tr>
+              <th></th>
+              <th><FontAwesomeIcon icon={faUtensils} /></th>
+              <th><FontAwesomeIcon icon={faBaby} rotation={90} /></th>
+            </tr>
+            {this.carerStats()}
+          </table>
       </div>
     )
   }
@@ -139,11 +169,14 @@ class EventStats extends React.Component {
 
 const MSP = (state, ownProps) => {
   let childId = ownProps.match.params.id;
+  let { events, users } = state.entities;
 
   return ({
     child: state.entities.children[childId],
     userId: state.session.user.id,
-    events: countEvents(state.entities.events),
+    eventCount: countEvents(events),
+    events: Object.values(events),
+    users,
     childId
   })
 };
