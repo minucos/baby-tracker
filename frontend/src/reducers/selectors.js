@@ -64,10 +64,11 @@ export const countEvents = (events) => {
 
 export const countByUser = (events, users) => {
   let count = {};
-
+  debugger
   Object.values(events).forEach(event => {
     let type = event.eventType;
-    let userId = event.recorder._id;
+    let recorder = type === 'feed' ? 'fedBy' : 'changedBy'; 
+    let userId = type === 'sleep' ? event.recorder._id : event.eventDetails[recorder];
 
     if (count[userId]) {
       count[userId][type] ? count[userId][type]++ : count[userId][type] = 1;
